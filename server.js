@@ -230,7 +230,8 @@ app.get('/v1/record', function(request, response) {
 
 });
 
-app.listen(3000);
+
+app.listen(env.NODE_PORT || 3000);
 
 
 
