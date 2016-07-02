@@ -231,7 +231,31 @@ app.get('/v1/record', function(request, response) {
 });
 
 
-app.listen(env.NODE_PORT || 3000);
+//Setup ip adress and port
+var ipaddress ;
+
+function initIPAdress() {
+    var adr = process.env.OPENSHIFT_NODEJS_IP;
+    if (typeof adr === "undefined") {
+            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+            //  allows us to run/test the app locally.
+            console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
+            adr = 'localhost';
+    }
+
+    ipaddress = adr;
+}
+initIPAdress();
+
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+
+
+
+
+app.listen(port, ipaddress, function() {
+        console.log('%s: Node server started on %s:%d ...',
+                        Date(Date.now() ), ipaddress, port);
+});
 
 
 
