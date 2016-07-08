@@ -330,23 +330,27 @@ var deliverFile = function(){
 //         }
 //     });
 };
+var handleServerReady = function() {
 
+    var logo = "\n"
+    logo+="      _                 __   _     _  __ _     \n";
+    logo+="     | |               / _| | |   (_)/ _| |    \n";
+    logo+="     | |     ___  __ _| |_  | |    _| |_| |_   \n";
+    logo+="     | |    / _ \\/ _` |  _| | |   | |  _| __|  \n";
+    logo+="     | |___|  __/ (_| | |   | |___| | | | |_   \n";
+    logo+="     \\_____/\\___|\\__,_|_|   \\_____/_|_|  \\__|  \n";
+    logo+="\n      API\n";
 
-rest_server.listen(port, function() {
-
-var logo = "\n"
-logo+="      _                 __   _     _  __ _     \n";
-logo+="     | |               / _| | |   (_)/ _| |    \n";
-logo+="     | |     ___  __ _| |_  | |    _| |_| |_   \n";
-logo+="     | |    / _ \\/ _` |  _| | |   | |  _| __|  \n";
-logo+="     | |___|  __/ (_| | |   | |___| | | | |_   \n";
-logo+="     \\_____/\\___|\\__,_|_|   \\_____/_|_|  \\__|  \n";
-logo+="\n      API\n";
-
-console.log( logo );
+    console.log( logo );
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
-});
+};
+if( env.NODE_IP ) {
+    rest_server.listen(port, env.NODE_IP, handleServerReady ); 
+} else {
+   rest_server.listen(port, handleServerReady ); 
+}
+
 
 
 // server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function() {
