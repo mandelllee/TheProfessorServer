@@ -299,8 +299,8 @@ rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
 
 var handleHealthRequest = function(request, response ){
-    res.writeHead(200);
-    res.end();
+    response.writeHead(200);
+    response.end();
 };
 
 rest_server.get('/health', handleHealthRequest );
