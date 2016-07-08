@@ -345,8 +345,8 @@ var handleServerReady = function() {
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
 };
-if( env.NODE_IP ) {
-    rest_server.listen(port, env.NODE_IP, handleServerReady ); 
+if( process.env.NODE_IP ) {
+    rest_server.listen(port, process.env.NODE_IP, handleServerReady ); 
 } else {
    rest_server.listen(port, handleServerReady ); 
 }
