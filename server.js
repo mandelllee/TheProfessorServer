@@ -347,16 +347,25 @@ function initIPAdress() {
 initIPAdress();
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-rest_server.listen(port, ipaddress, handleServerReady ); 
+//rest_server.listen(port, ipaddress, handleServerReady ); 
 
 
 
-// var app = express();
-// app.get('/', function(request, response) {
-//     response.send("welcome");
-//     response.end();
-// });
+var app = express();
+app.get('/', function(request, response) {
+    response.send("api");
+    response.end();
+});
 
-// app.listen(process.env.NODE_PORT || 3000, process.env.NODE_IP || 'localhost', function() {
-//     console.log(`Application worker ${process.pid} started...`);
-// });
+app.get('/v1/record', function(request, response) {
+    response.send("stub");
+    response.end();
+});
+app.get('/v1/provision', function(request, response) {
+    response.send("stub");
+    response.end();
+});
+
+app.listen(port, ipaddress, function() {
+    console.log(`Application worker ${process.pid} started...`);
+});
