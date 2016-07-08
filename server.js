@@ -148,7 +148,6 @@ function initIPAdress() {
 }
 initIPAdress();
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 var get_current_month_string = function() {
     var now_date = new Date();
@@ -345,6 +344,8 @@ var handleServerReady = function() {
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
 };
+
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 if( process.env.NODE_IP ) {
     rest_server.listen(port, process.env.NODE_IP, handleServerReady ); 
 } else {
