@@ -193,7 +193,7 @@
     </object>
     <object type="LMREQUEST" id="z115">
         <attribute name="uuid" type="string">A99057A0-8336-4C37-A116-1A732D83EBC4</attribute>
-        <attribute name="url" type="string">http://api-quadroponic.rhcloud.com/v1/record?type=test\u2600propertyname=prop\u2600value=value\u2600id=id\u2600boardid=bork\u2600core_version=test_core\u2600boardname=pork</attribute>
+        <attribute name="url" type="string">http://api-quadroponic.rhcloud.com/v1/record?type=test\u2600propertyname=prop\u2600value=value\u2600id=id\u2600boardid=bork\u2600core_version=test_core\u2600boardname=chicken</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

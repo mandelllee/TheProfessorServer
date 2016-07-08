@@ -333,6 +333,17 @@ var deliverFile = function(){
 
 
 rest_server.listen(port, function() {
+
+var logo = "\n"
+logo+="      _                 __   _     _  __ _     \n";
+logo+="     | |               / _| | |   (_)/ _| |    \n";
+logo+="     | |     ___  __ _| |_  | |    _| |_| |_   \n";
+logo+="     | |    / _ \\/ _` |  _| | |   | |  _| __|  \n";
+logo+="     | |___|  __/ (_| | |   | |___| | | | |_   \n";
+logo+="     \\_____/\\___|\\__,_|_|   \\_____/_|_|  \\__|  \n";
+logo+="\n      API\n";
+
+console.log( logo );
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
 });
