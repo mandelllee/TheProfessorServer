@@ -1,6 +1,5 @@
 var GoogleSpreadsheet = require('google-spreadsheet');
 var express = require('express');
-//var app = express();
 var async = require('async');
 
 var creds = {
@@ -16,12 +15,6 @@ var creds = {
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/apiworker%40quadroponic.iam.gserviceaccount.com"
 };
 //var creds = require('./google-generated-creds.json');
-
-// app.get('/', function(request, response) {
-//     response.send("welcome");
-//     response.end();
-// });
-
 
 var provisionDevice = function(request, response) {
     var query = request.query;
@@ -345,15 +338,28 @@ var handleServerReady = function() {
     console.log(`Application worker ${process.pid} started...`);
 };
 
+// //provide a sensible default for local development
+// mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + db_name;
+// //take advantage of openshift env vars when available:
+// if(process.env.OPENSHIFT_MONGODB_DB_URL){
+//   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+// }
+
+
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-if( process.env.NODE_IP ) {
-    rest_server.listen(port, process.env.NODE_IP, handleServerReady ); 
-} else {
-   rest_server.listen(port, handleServerReady ); 
-}
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+
+rest_server.listen(port, ipaddress, handleServerReady ); 
 
 
 
-// server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function() {
+// var app = express();
+
+// app.get('/', function(request, response) {
+//     response.send("welcome");
+//     response.end();
+// });
+
+// app.listen(process.env.NODE_PORT || 3000, process.env.NODE_IP || 'localhost', function() {
 //     console.log(`Application worker ${process.pid} started...`);
 // });
