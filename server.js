@@ -271,15 +271,16 @@ var recordData = function(request, response, next) {
 
 }
 
+var handleHealthRequest = function(request, response ){
+    response.writeHead(200);
+    response.end("hello");
+};
+
 
 rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
 rest_server.get('/', handleHealthRequest );
 
-var handleHealthRequest = function(request, response ){
-    response.writeHead(200);
-    response.end();
-};
 
 rest_server.get('/health', handleHealthRequest );
 
