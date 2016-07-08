@@ -274,6 +274,7 @@ var recordData = function(request, response, next) {
 
 rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
+rest_server.get('/', handleHealthRequest );
 
 var handleHealthRequest = function(request, response ){
     response.writeHead(200);
@@ -347,25 +348,25 @@ function initIPAdress() {
 initIPAdress();
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-//rest_server.listen(port, ipaddress, handleServerReady ); 
+rest_server.listen(port, ipaddress, handleServerReady ); 
 
 
 
-var app = express();
-app.get('/', function(request, response) {
-    response.send("api");
-    response.end();
-});
+// var app = express();
+// app.get('/', function(request, response) {
+//     response.send("api");
+//     response.end();
+// });
 
-app.get('/v1/record', function(request, response) {
-    response.send("stub");
-    response.end();
-});
-app.get('/v1/provision', function(request, response) {
-    response.send("stub");
-    response.end();
-});
+// app.get('/v1/record', function(request, response) {
+//     response.send("stub");
+//     response.end();
+// });
+// app.get('/v1/provision', function(request, response) {
+//     response.send("stub");
+//     response.end();
+// });
 
-app.listen(port, ipaddress, function() {
-    console.log(`Application worker ${process.pid} started...`);
-});
+// app.listen(port, ipaddress, function() {
+//     console.log(`Application worker ${process.pid} started...`);
+// });
