@@ -277,9 +277,14 @@ var handleHealthRequest = function(request, response ){
 };
 
 
+rest_server.get(/\/static\/?.*/, restify.serveStatic({
+    directory: __dirname
+}));
+
 rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
 rest_server.get('/', handleHealthRequest );
+rest_server.get('/index.html', handleHealthRequest );
 
 
 rest_server.get('/health', handleHealthRequest );

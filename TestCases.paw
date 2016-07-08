@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>9F14C842-8215-4F2F-978A-4B6C808B9DE9</UUID>
-        <nextObjectID>116</nextObjectID>
+        <nextObjectID>119</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -62,7 +62,7 @@
     </databaseInfo>
     <object type="LMREQUEST" id="z102">
         <attribute name="uuid" type="string">2CD9C90C-8353-47B0-8872-773526535668</attribute>
-        <attribute name="url" type="string">http://localhost:3000/v1/provision?type=BLE\u2600id=id\u2600boardid=b1\u2600core_version=bt4_core\u2600boardname=bear3\u2600nodeid=abc342534\u2600hardware=NRF51822\u2600platform=arduino</attribute>
+        <attribute name="url" type="string">http://localhost:3000/v1/provision?type=BLE\u2600id=id\u2600boardid=b1\u2600core_version=bt4_core\u2600boardname=bear3\u2600nodeid=12\u2600hardware=NRF51822\u2600platform=arduino</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -135,7 +135,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">0</attribute>
+        <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">LeafLift_API - recordValue</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -150,7 +150,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">4</attribute>
+        <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">LeafLift_API - health</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -178,16 +178,16 @@
     </object>
     <object type="LMREQUEST" id="z114">
         <attribute name="uuid" type="string">CD6A2AC4-6373-4A5E-812D-CC6D0F12A284</attribute>
-        <attribute name="url" type="string">http://api-quadroponic.rhcloud.com/v1/provision?type=BLE\u2600id=id\u2600boardid=b1\u2600core_version=bt4_core\u2600boardname=bear3\u2600nodeid=abc342534\u2600hardware=NRF51822\u2600platform=arduino</attribute>
+        <attribute name="url" type="string">http://api-quadroponic.rhcloud.com/v1/provision?type=BLE\u2600id=id\u2600boardid=b1\u2600core_version=bt4_core\u2600boardname=bear3\u2600nodeid=222\u2600hardware=NRF51822\u2600platform=arduino</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">3</attribute>
+        <attribute name="order" type="int64">2</attribute>
         <attribute name="name" type="string">LeafLift_API - provision (prod)</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z119"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z113"></relationship>
     </object>
@@ -202,7 +202,7 @@
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">LeafLift_API - recordValue (prod)</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z119"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z116"></relationship>
     </object>
@@ -215,5 +215,40 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z115"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z117">
+        <attribute name="uuid" type="string">1AB89094-898E-4637-BDCC-581D1DD10929</attribute>
+        <attribute name="url" type="string">http://api-quadroponic.rhcloud.com/health</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">GET</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">LeafLift_API - health Duplicate</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z119"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z118"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z118">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z117"></relationship>
+    </object>
+    <object type="LMREQUESTGROUP" id="z119">
+        <attribute name="uuid" type="string">4ED52A9E-EEBC-4F71-8638-1083E1A193D4</attribute>
+        <attribute name="order" type="int64">3</attribute>
+        <attribute name="name" type="string">prod</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z117 z115 z114"></relationship>
+        <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
+        <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
     </object>
 </database>
