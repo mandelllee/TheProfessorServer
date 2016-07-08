@@ -125,21 +125,6 @@ var provisionDevice = function(request, response) {
 
 
 
-//Setup ip adress and port
-var ipaddress;
-
-function initIPAdress() {
-    var adr = process.env.NODE_IP;
-    if (typeof adr === "undefined") {
-        //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
-        //  allows us to run/test the app locally.
-        console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-        adr = '10.5.1.25';
-    }
-
-    ipaddress = adr;
-}
-initIPAdress();
 
 
 var get_current_month_string = function() {
@@ -346,15 +331,27 @@ var handleServerReady = function() {
 // }
 
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+//Setup ip adress and port
+var ipaddress;
 
+function initIPAdress() {
+    var adr = process.env.NODE_IP;
+    if (typeof adr === "undefined") {
+        //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+        //  allows us to run/test the app locally.
+        console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
+        adr = '127.0.0.1';
+    }
+    ipaddress = adr;
+}
+initIPAdress();
+
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 rest_server.listen(port, ipaddress, handleServerReady ); 
 
 
 
 // var app = express();
-
 // app.get('/', function(request, response) {
 //     response.send("welcome");
 //     response.end();
