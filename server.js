@@ -156,6 +156,8 @@ var restify = require('restify');
 var rest_server = restify.createServer();
 rest_server.use(restify.queryParser());
 
+var nowDate = new Date();
+
 
 var recordData = function(request, response, next) {
 
@@ -270,10 +272,16 @@ var recordData = function(request, response, next) {
     response.end("recorded");
 
 }
+var handleNowTimeRequest = function( request, response ){
+    var nowString = Math.floor( Date.now() / 1000 );
+
+    response.writeHead(200);
+    response.end( "" + nowString );
+};
 
 var handleHealthRequest = function(request, response ){
     response.writeHead(200);
-    response.end("hello");
+    response.end( "node" );
 };
 
 
@@ -285,6 +293,8 @@ rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
 rest_server.get('/', handleHealthRequest );
 rest_server.get('/index.html', handleHealthRequest );
+
+rest_server.get('/now', handleNowTimeRequest );
 
 
 rest_server.get('/health', handleHealthRequest );
