@@ -178,7 +178,7 @@ var recordData = function(request, response, next) {
 
         var get_current_date_string = function() {
 
-            return now_date.getMonth() + "/" + now_date.getDay() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
+            return now_date.getMonth() + "/" + now_date.getDate() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
         }
         var current_date_string = get_current_date_string();
 
@@ -276,7 +276,8 @@ var handleNowTimeRequest = function( request, response ){
     var nowString = Math.floor( Date.now() / 1000 );
 
     response.writeHead(200);
-    response.end( "" + nowString );
+    response.end( "" + nowString + "" );
+    //response.end('{"now":"'+nowString+'"}');
 };
 
 var handleHealthRequest = function(request, response ){
@@ -357,7 +358,7 @@ function initIPAdress() {
         //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
         //  allows us to run/test the app locally.
         console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-        adr = '127.0.0.1';
+        adr = '10.5.1.25';
     }
     ipaddress = adr;
 }
