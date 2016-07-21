@@ -358,7 +358,76 @@ var handleHealthRequest = function(request, response ){
     response.writeHead(200);
     response.end( "node" );
 };
+var handleAquaReport = function(request, response){
 
+    console.log("Water report for ["+request.params.nodename+"]");
+
+    mongo_db.collection('SensorData').aggregate([{
+            $match: { hostname: request.params.nodename }
+        }, {
+            $project: {
+                hostname: "$hostname",
+                //now:"$now",
+                //timestamp: "$timestamp",
+                date: { $add: [new Date(0), "$timestamp"] },
+
+                //p: { $concat: new Date( "$timestamp").toTimeString() },
+                //d:  ISODate("$date"),
+
+                //cal: "$sensors.soil.calibration",
+                ph: "$sensors.ph",
+                temp: "$sensors.probes.avg.temp_c",
+
+                //temp_f:{$multiply: [ new Number("$sensors.probes.avg.temp_c").valueOf(), 2 ]},
+                //             soil_1_cal:"$sensors.soil.calibration.wet.1",
+                // 
+                //             soil_2:"$sensors.soil.sensors.2",
+                //             soil_3:"$sensors.soil.sensors.3",
+                //             //cal:"$sensors.soil.calibration",
+                _id: 0
+            }
+        },
+        { $sort: { date: -1 } }
+        //,{ $limit: 10 }
+    ], function(err, result){
+        response.setHeader('Content-Type', 'application/json');
+        response.json( result );
+    });
+
+};
+
+var handleSoilReport = function(request, response){
+
+    console.log("Soil Report for ["+request.params.nodename+"]");
+
+    mongo_db.collection('SensorData').aggregate([
+        {
+          $match: { hostname:request.params.nodename }  
+        },
+        { $project : { 
+            hostname:"$hostname",
+            //now:"$now",
+            //timestamp: "$timestamp",
+            date: {$add: [new Date(0), "$timestamp"]},
+            //cal: "$sensors.soil.calibration",
+            soil_1:"$sensors.soil.sensors.1",
+            //soil_1_cal:"$sensors.soil.calibration.wet.1",
+
+            soil_2:"$sensors.soil.sensors.2",
+            soil_3:"$sensors.soil.sensors.3",
+            //cal:"$sensors.soil.calibration",
+            _id: 0
+           }
+        },        
+        { $sort : { date : -1 } }
+//         ,{ $limit: 10 }
+    ], function(err, result){
+        response.setHeader('Content-Type', 'application/json');
+        response.json( result );
+    });
+
+    
+}
 
 rest_server.get(/\/static\/?.*/, restify.serveStatic({
     directory: __dirname
@@ -371,9 +440,12 @@ rest_server.get('/index.html', handleHealthRequest );
 
 rest_server.get('/now', handleNowTimeRequest );
 
-rest_server.post('v1/record/sensordata', handleRecordSensorJSON );
-rest_server.post('v1/record/nodeconfig', handleRecordConfigJSON );
+rest_server.post('/v1/record/sensordata', handleRecordSensorJSON );
+rest_server.post('/v1/record/nodeconfig', handleRecordConfigJSON );
 
+
+rest_server.get( "v1/report/water/:nodename", handleAquaReport )
+rest_server.get( "v1/report/soil/:nodename", handleSoilReport )
 
 rest_server.get('/health', handleHealthRequest );
 
@@ -402,6 +474,8 @@ var deliverFile = function(){
 //         }
 //     });
 };
+var connection_string = "";
+
 var handleServerReady = function() {
 
     var logo = "\n"
@@ -419,7 +493,7 @@ var handleServerReady = function() {
    
 
     // default to a 'localhost' configuration:
-    var connection_string = '127.0.0.1:27017/api';
+    connection_string = '127.0.0.1:27017/api';
     // if OPENSHIFT env variables are present, use the available connection info:
     if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
       connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
