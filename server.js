@@ -2,6 +2,7 @@ var GoogleSpreadsheet = require('google-spreadsheet');
 var express = require('express');
 var async = require('async');
 
+
 var creds = {
     "type": "service_account",
     "project_id": "quadroponic",
@@ -155,9 +156,15 @@ var get_current_month_string = function() {
 var restify = require('restify');
 var rest_server = restify.createServer();
 rest_server.use(restify.queryParser());
+rest_server.use(restify.bodyParser());
 
 var nowDate = new Date();
 
+var get_current_date_string = function() {
+    var now_date = new Date();
+
+    return now_date.getMonth() + "/" + now_date.getDate() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
+}
 
 var recordData = function(request, response, next) {
 
@@ -169,17 +176,13 @@ var recordData = function(request, response, next) {
         var worksheets;
         var current_month_sheet = null;
         var active_worksheet = null;
-        var now_date = new Date();
         
         var current_month_string = get_current_month_string();
         var worksheet_name = query.boardname;
 
         //console.log("current_month_string=" + current_month_string);
 
-        var get_current_date_string = function() {
-
-            return now_date.getMonth() + "/" + now_date.getDate() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
-        }
+        
         var current_date_string = get_current_date_string();
 
         async.series([
@@ -272,6 +275,70 @@ var recordData = function(request, response, next) {
     response.end("recorded");
 
 }
+
+
+
+var handleRecordConfigJSON = function( request, response ){
+
+    console.log( "handleRecordConfigJSON" );
+
+    //var json = JSON.stringify( request.body );
+    var json = ( request.body );
+
+    console.log( request );
+    //console.log( "hostname: " + json.hostname );
+
+    recordConfigJSON( json, function(err, doc){
+
+        response.setHeader('Content-Type', 'application/json');
+        response.setHeader('Cache-Control', 'no-cache, no-store');
+
+        response.end( "done" );
+    }, function() {
+
+        console.log("record config response sent");
+
+    });
+
+}
+var recordConfigJSON = function( json, callback ){
+    
+    console.log( json );
+    var r = mongo_db.collection('ConfigData').insert( json, callback ); 
+
+};
+
+
+var handleRecordSensorJSON = function( request, response ){
+
+    console.log( "handleRecordSensorJSON" );
+
+    //var json = JSON.stringify( request.body );
+    var json = ( request.body );
+
+    console.log( request );
+    //console.log( "hostname: " + json.hostname );
+
+    recordSensorJSON( json, function(err, doc){
+
+        response.setHeader('Content-Type', 'application/json');
+        response.setHeader('Cache-Control', 'no-cache, no-store');
+
+        response.end( "done" );
+    } );
+
+}
+
+var recordSensorJSON = function( json, callback ){
+    
+    console.log( json );
+
+    
+    var r = mongo_db.collection('SensorData').insert( json, callback ); 
+
+
+};
+
 var handleNowTimeRequest = function( request, response ){
     var nowString = Math.floor( Date.now() / 1000 );
 
@@ -296,6 +363,9 @@ rest_server.get('/', handleHealthRequest );
 rest_server.get('/index.html', handleHealthRequest );
 
 rest_server.get('/now', handleNowTimeRequest );
+
+rest_server.post('v1/record/sensordata', handleRecordSensorJSON );
+rest_server.post('v1/record/nodeconfig', handleRecordConfigJSON );
 
 
 rest_server.get('/health', handleHealthRequest );
@@ -339,7 +409,55 @@ var handleServerReady = function() {
     console.log( logo );
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
+    // try {
+    //     if( mongo_host.length==0 || mongo_port.length==0 )
+    //     {
+    //         console.log("no mongo details");
+    //     }
+    // } catch(err){
+    //     mongo_host = "localhost";
+    //     mongo_port = 27017;
+    // }
+    var mongo_host = "localhost";
+    var mongo_port = 27017;
+    var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
+    console.log("Connecting mongo ["+mongo_url+"]");
+
+    MongoClient.connect(mongo_url, function(err, db) {
+      
+      //console.log( err.message );
+      assert.equal(null, err);
+
+      mongo_db = db;
+
+      db.collection('SystemStatus').insertOne( { 'msg': "system ready", "date":get_current_date_string() } );
+      console.log("Started up mongo connection.");
+
+      // recordSensorJSON( {
+      //     "hostname":"aqua",
+      //     "core_version":"0.0-tree",
+      //     "now":"1469060512",
+      //     "sensors": {
+      //       "uid": "000000",
+      //       "ph": "6.90",
+      //       "probes": {
+      //         "avg": { "temp_c": "26.81" }
+      //       }
+      //     }
+      // });
+
+
+    });
 };
+var mongo_db;
+var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST;
+var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT;
+
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
+
+
 
 // //provide a sensible default for local development
 // mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + db_name;
@@ -347,6 +465,9 @@ var handleServerReady = function() {
 // if(process.env.OPENSHIFT_MONGODB_DB_URL){
 //   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
 // }
+
+
+
 
 
 //Setup ip adress and port
