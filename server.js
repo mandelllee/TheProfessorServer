@@ -409,21 +409,26 @@ var handleServerReady = function() {
     console.log( logo );
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
-    // try {
-    //     if( mongo_host.length==0 || mongo_port.length==0 )
-    //     {
-    //         console.log("no mongo details");
-    //     }
-    // } catch(err){
-    //     mongo_host = "localhost";
-    //     mongo_port = 27017;
-    // }
-    // var mongo_host = "localhost";
-    // var mongo_port = 27017;
-    var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
-    console.log("Connecting mongo ["+mongo_url+"]");
+   
 
-    MongoClient.connect(mongo_url, function(err, db) {
+    // default to a 'localhost' configuration:
+    var connection_string = '127.0.0.1:27017/api';
+    // if OPENSHIFT env variables are present, use the available connection info:
+    if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+      connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+      process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+      process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+      process.env.OPENSHIFT_APP_NAME;
+    }
+
+
+
+
+    //var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
+    console.log("Connecting mongo ["+connection_string+"]");
+
+    MongoClient.connect("mongodb://" + connection_string, function(err, db) {
       
       //console.log( err.message );
       assert.equal(null, err);
@@ -452,6 +457,8 @@ var handleServerReady = function() {
 var mongo_db;
 var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST || "localhost";
 var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT || 27017;
+
+
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
