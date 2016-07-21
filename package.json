@@ -16,7 +16,6 @@
     "feedback": "^0.3.2",
     "google-auth-library": "^0.9.8",
     "google-spreadsheet": "^2.0.3",
-    "mdns": "^2.3.3",
     "mongodb": "^2.2.4",
     "restify": "^4.1.1"
   }
