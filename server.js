@@ -450,8 +450,8 @@ var handleServerReady = function() {
     });
 };
 var mongo_db;
-var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST | "localhost";
-var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT | 27017;
+var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST || "localhost";
+var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT || 27017;
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
