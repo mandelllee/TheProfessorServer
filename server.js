@@ -166,6 +166,10 @@ var get_current_date_string = function() {
     return now_date.getMonth() + "/" + now_date.getDate() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
 }
 
+var getNowTimestamp = function(){
+    return Date.now();
+}
+
 var recordData = function(request, response, next) {
 
     var query = request.query;
@@ -284,6 +288,8 @@ var handleRecordConfigJSON = function( request, response ){
 
     //var json = JSON.stringify( request.body );
     var json = ( request.body );
+    
+    json.timestamp = getNowTimestamp();
 
     console.log( request );
     //console.log( "hostname: " + json.hostname );
@@ -315,6 +321,7 @@ var handleRecordSensorJSON = function( request, response ){
 
     //var json = JSON.stringify( request.body );
     var json = ( request.body );
+    json.timestamp = getNowTimestamp();
 
     console.log( request );
     //console.log( "hostname: " + json.hostname );
