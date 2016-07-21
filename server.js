@@ -418,8 +418,8 @@ var handleServerReady = function() {
     //     mongo_host = "localhost";
     //     mongo_port = 27017;
     // }
-    var mongo_host = "localhost";
-    var mongo_port = 27017;
+    // var mongo_host = "localhost";
+    // var mongo_port = 27017;
     var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
     console.log("Connecting mongo ["+mongo_url+"]");
 
@@ -450,8 +450,8 @@ var handleServerReady = function() {
     });
 };
 var mongo_db;
-var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST;
-var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT;
+var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST | "localhost";
+var mongo_port = process.env.OPENSHIFT_MONGODB_DB_PORT | 27017;
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
