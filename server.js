@@ -20,7 +20,7 @@ var creds = {
 var provisionDevice = function(request, response) {
     var query = request.query;
 
-    var responseText="";
+    var responseText = "";
 
 
     try {
@@ -37,7 +37,7 @@ var provisionDevice = function(request, response) {
                 doc.useServiceAccountAuth(creds, step);
             },
             function getInfoAndWorksheets(step) {
-                console.log( "getting worksheets..." );
+                console.log("getting worksheets...");
                 doc.getInfo(function(err, info) {
                     //console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
 
@@ -70,9 +70,9 @@ var provisionDevice = function(request, response) {
 
                 var url = require('url');
                 var url_parts = url.parse(request.url, false);
-                
 
-                console.log("searching for nodeid=" + query.nodeid );
+
+                console.log("searching for nodeid=" + query.nodeid);
                 nodes_sheet.getRows({
 
                     query: "nodeid=" + query.nodeid
@@ -98,11 +98,11 @@ var provisionDevice = function(request, response) {
                         }, function(err) {
                             responseText = "provisioned device";
                             if (err != null) console.log("error: " + err);
-                        response.end(responseText);
+                            response.end(responseText);
                         });
 
                     } else {
-                        responseText = "nodeid already exists  ["+query.nodeid+"]";
+                        responseText = "nodeid already exists  [" + query.nodeid + "]";
                         //return;
                         response.end(responseText);
                     }
@@ -166,7 +166,7 @@ var get_current_date_string = function() {
     return now_date.getMonth() + "/" + now_date.getDate() + "/" + now_date.getFullYear() + " " + now_date.getHours() + ":" + now_date.getMinutes() + ":" + now_date.getSeconds();
 }
 
-var getNowTimestamp = function(){
+var getNowTimestamp = function() {
     return Date.now();
 }
 
@@ -180,13 +180,13 @@ var recordData = function(request, response, next) {
         var worksheets;
         var current_month_sheet = null;
         var active_worksheet = null;
-        
+
         var current_month_string = get_current_month_string();
         var worksheet_name = query.boardname;
 
         //console.log("current_month_string=" + current_month_string);
 
-        
+
         var current_date_string = get_current_date_string();
 
         async.series([
@@ -248,11 +248,11 @@ var recordData = function(request, response, next) {
                 var notes = "";
                 var model = "";
 
-                console.log("recording data for board["+boardid+"] " + query.propertyname + "=" + query.value );
+                console.log("recording data for board[" + boardid + "] " + query.propertyname + "=" + query.value);
 
                 active_worksheet.addRow({
                     "id": query.id,
-                    "description":query.description,
+                    "description": query.description,
                     "type": query.type,
                     "propertyname": query.propertyname,
                     "value": query.value,
@@ -282,24 +282,24 @@ var recordData = function(request, response, next) {
 
 
 
-var handleRecordConfigJSON = function( request, response ){
+var handleRecordConfigJSON = function(request, response) {
 
-    console.log( "handleRecordConfigJSON" );
+    console.log("handleRecordConfigJSON");
 
     //var json = JSON.stringify( request.body );
-    var json = ( request.body );
-    
+    var json = (request.body);
+
     json.timestamp = getNowTimestamp();
 
-    console.log( request );
+    console.log(request);
     //console.log( "hostname: " + json.hostname );
 
-    recordConfigJSON( json, function(err, doc){
+    recordConfigJSON(json, function(err, doc) {
 
         response.setHeader('Content-Type', 'application/json');
         response.setHeader('Cache-Control', 'no-cache, no-store');
 
-        response.end( "done" );
+        response.end("done");
     }, function() {
 
         console.log("record config response sent");
@@ -307,60 +307,60 @@ var handleRecordConfigJSON = function( request, response ){
     });
 
 }
-var recordConfigJSON = function( json, callback ){
-    
-    console.log( json );
-    var r = mongo_db.collection('ConfigData').insert( json, callback ); 
+var recordConfigJSON = function(json, callback) {
+
+    console.log(json);
+    var r = mongo_db.collection('ConfigData').insert(json, callback);
 
 };
 
 
-var handleRecordSensorJSON = function( request, response ){
+var handleRecordSensorJSON = function(request, response) {
 
-    console.log( "handleRecordSensorJSON" );
+    console.log("handleRecordSensorJSON");
 
     //var json = JSON.stringify( request.body );
-    var json = ( request.body );
+    var json = (request.body);
     json.timestamp = getNowTimestamp();
 
-    console.log( request );
+    console.log(request);
     //console.log( "hostname: " + json.hostname );
 
-    recordSensorJSON( json, function(err, doc){
+    recordSensorJSON(json, function(err, doc) {
 
         response.setHeader('Content-Type', 'application/json');
         response.setHeader('Cache-Control', 'no-cache, no-store');
 
-        response.end( "done" );
-    } );
+        response.end("done");
+    });
 
 }
 
-var recordSensorJSON = function( json, callback ){
-    
-    console.log( json );
+var recordSensorJSON = function(json, callback) {
 
-    
-    var r = mongo_db.collection('SensorData').insert( json, callback ); 
+    console.log(json);
+
+
+    var r = mongo_db.collection('SensorData').insert(json, callback);
 
 
 };
 
-var handleNowTimeRequest = function( request, response ){
-    var nowString = Math.floor( Date.now() / 1000 );
+var handleNowTimeRequest = function(request, response) {
+    var nowString = Math.floor(Date.now() / 1000);
 
     response.writeHead(200);
-    response.end( "" + nowString + "" );
+    response.end("" + nowString + "");
     //response.end('{"now":"'+nowString+'"}');
 };
 
-var handleHealthRequest = function(request, response ){
+var handleHealthRequest = function(request, response) {
     response.writeHead(200);
-    response.end( "node" );
+    response.end("node");
 };
-var handleAquaReport = function(request, response){
+var handleAquaReport = function(request, response) {
 
-    console.log("Water report for ["+request.params.nodename+"]");
+    console.log("Water report for [" + request.params.nodename + "]");
 
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
@@ -387,46 +387,75 @@ var handleAquaReport = function(request, response){
                 _id: 0
             }
         },
-        { $sort: { date: -1 } }
-        //,{ $limit: 10 }
-    ], function(err, result){
+        { $sort: { date: -1 } }, { $limit: 100 }
+    ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
-        response.json( result );
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.json(result);
     });
 
 };
+var handleEnvironmentReport = function(request, response) {
 
-var handleSoilReport = function(request, response){
+    console.log("Environment Report for [" + request.params.nodename + "]");
+    mongo_db.collection('SensorData').aggregate([{
+            $match: { hostname: request.params.nodename }
+        }, {
+            $project: {
+                hostname: "$hostname",
+                //now:"$now",
+                //timestamp: "$timestamp",
+                date: { $add: [new Date(0), "$timestamp"] },
 
-    console.log("Soil Report for ["+request.params.nodename+"]");
+                light_lux: "$sensors.tsl2561.lux",
 
-    mongo_db.collection('SensorData').aggregate([
-        {
-          $match: { hostname:request.params.nodename }  
+                air_temp_f: "$sensors.bmp085.temp_f",
+                air_pressure: "$sensors.bmp085.pressure",
+                air_humidity: "$sensors.dht11.dht_humidity",
+                _id: 0
+            }
+
         },
-        { $project : { 
-            hostname:"$hostname",
-            //now:"$now",
-            //timestamp: "$timestamp",
-            date: {$add: [new Date(0), "$timestamp"]},
-            //cal: "$sensors.soil.calibration",
-            soil_1:"$sensors.soil.sensors.1",
-            //soil_1_cal:"$sensors.soil.calibration.wet.1",
+        { $sort: { date: -1 } }, { $limit: 100 }
+    ], function(err, result) {
 
-            soil_2:"$sensors.soil.sensors.2",
-            soil_3:"$sensors.soil.sensors.3",
-            //cal:"$sensors.soil.calibration",
-            _id: 0
-           }
-        },        
-        { $sort : { date : -1 } }
-//         ,{ $limit: 10 }
-    ], function(err, result){
         response.setHeader('Content-Type', 'application/json');
-        response.json( result );
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.json(result);
+    });
+};
+
+
+var handleSoilReport = function(request, response) {
+
+    console.log("Soil Report for [" + request.params.nodename + "]");
+
+    mongo_db.collection('SensorData').aggregate([{
+            $match: { hostname: request.params.nodename }
+        }, {
+            $project: {
+                hostname: "$hostname",
+                //now:"$now",
+                //timestamp: "$timestamp",
+                date: { $add: [new Date(0), "$timestamp"] },
+                //cal: "$sensors.soil.calibration",
+                soil_1: "$sensors.soil.sensors.1",
+                //soil_1_cal:"$sensors.soil.calibration.wet.1",
+
+                soil_2: "$sensors.soil.sensors.2",
+                soil_3: "$sensors.soil.sensors.3",
+                //cal:"$sensors.soil.calibration",
+                _id: 0
+            }
+        },
+        { $sort: { date: -1 } }, { $limit: 100 }
+    ], function(err, result) {
+        response.setHeader('Content-Type', 'application/json');
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.json(result);
     });
 
-    
+
 }
 
 rest_server.get(/\/static\/?.*/, restify.serveStatic({
@@ -435,102 +464,103 @@ rest_server.get(/\/static\/?.*/, restify.serveStatic({
 
 rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
-rest_server.get('/', handleHealthRequest );
-rest_server.get('/index.html', handleHealthRequest );
+rest_server.get('/', handleHealthRequest);
+rest_server.get('/index.html', handleHealthRequest);
 
-rest_server.get('/now', handleNowTimeRequest );
+rest_server.get('/now', handleNowTimeRequest);
 
-rest_server.post('/v1/record/sensordata', handleRecordSensorJSON );
-rest_server.post('/v1/record/nodeconfig', handleRecordConfigJSON );
-
-
-rest_server.get( "v1/report/water/:nodename", handleAquaReport )
-rest_server.get( "v1/report/soil/:nodename", handleSoilReport )
-
-rest_server.get('/health', handleHealthRequest );
+rest_server.post('/v1/record/sensordata', handleRecordSensorJSON);
+rest_server.post('/v1/record/nodeconfig', handleRecordConfigJSON);
 
 
-var handleInfoRequest = function(request, response ){
+rest_server.get("v1/report/water/:nodename", handleAquaReport)
+rest_server.get("v1/report/soil/:nodename", handleSoilReport)
+rest_server.get("v1/report/environment/:nodename", handleEnvironmentReport)
+
+rest_server.get('/health', handleHealthRequest);
+
+
+var handleInfoRequest = function(request, response) {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-cache, no-store');
     res.end(JSON.stringify(sysInfo[url.slice(6)]()));
 };
 
-rest_server.get('/info/gen', handleInfoRequest );
-rest_server.get('/info/poll', handleInfoRequest );
+rest_server.get('/info/gen', handleInfoRequest);
+rest_server.get('/info/poll', handleInfoRequest);
 
-var deliverFile = function(){
-// fs.readFile('./static' + url, function(err, data) {
-//         if (err) {
-//             res.writeHead(404);
-//             res.end('Not found');
-//         } else {
-//             var ext = path.extname(url).slice(1);
-//             res.setHeader('Content-Type', contentTypes[ext]);
-//             if (ext === 'html') {
-//                 res.setHeader('Cache-Control', 'no-cache, no-store');
-//             }
-//             res.end(data);
-//         }
-//     });
+var deliverFile = function() {
+    // fs.readFile('./static' + url, function(err, data) {
+    //         if (err) {
+    //             res.writeHead(404);
+    //             res.end('Not found');
+    //         } else {
+    //             var ext = path.extname(url).slice(1);
+    //             res.setHeader('Content-Type', contentTypes[ext]);
+    //             if (ext === 'html') {
+    //                 res.setHeader('Cache-Control', 'no-cache, no-store');
+    //             }
+    //             res.end(data);
+    //         }
+    //     });
 };
 var connection_string = "";
 
 var handleServerReady = function() {
 
     var logo = "\n"
-    logo+="      _                 __   _     _  __ _     \n";
-    logo+="     | |               / _| | |   (_)/ _| |    \n";
-    logo+="     | |     ___  __ _| |_  | |    _| |_| |_   \n";
-    logo+="     | |    / _ \\/ _` |  _| | |   | |  _| __|  \n";
-    logo+="     | |___|  __/ (_| | |   | |___| | | | |_   \n";
-    logo+="     \\_____/\\___|\\__,_|_|   \\_____/_|_|  \\__|  \n";
-    logo+="\n      API\n";
+    logo += "      _                 __   _     _  __ _     \n";
+    logo += "     | |               / _| | |   (_)/ _| |    \n";
+    logo += "     | |     ___  __ _| |_  | |    _| |_| |_   \n";
+    logo += "     | |    / _ \\/ _` |  _| | |   | |  _| __|  \n";
+    logo += "     | |___|  __/ (_| | |   | |___| | | | |_   \n";
+    logo += "     \\_____/\\___|\\__,_|_|   \\_____/_|_|  \\__|  \n";
+    logo += "\n      API\n";
 
-    console.log( logo );
+    console.log(logo);
     console.log('%s listening at %s', rest_server.name, rest_server.url);
     console.log(`Application worker ${process.pid} started...`);
-   
+
 
     // default to a 'localhost' configuration:
     connection_string = '127.0.0.1:27017/api';
     // if OPENSHIFT env variables are present, use the available connection info:
-    if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-      connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-      process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-      process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-      process.env.OPENSHIFT_APP_NAME;
+    if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+        connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+            process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+            process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+            process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+            process.env.OPENSHIFT_APP_NAME;
     }
 
 
 
 
     //var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
-    console.log("Connecting mongo ["+connection_string+"]");
+    console.log("Connecting mongo [" + connection_string + "]");
 
     MongoClient.connect("mongodb://" + connection_string, function(err, db) {
-      
-      //console.log( err.message );
-      assert.equal(null, err);
 
-      mongo_db = db;
+        //console.log( err.message );
+        assert.equal(null, err);
 
-      db.collection('SystemStatus').insertOne( { 'msg': "system ready", "date":get_current_date_string() } );
-      console.log("Started up mongo connection.");
+        mongo_db = db;
 
-      // recordSensorJSON( {
-      //     "hostname":"aqua",
-      //     "core_version":"0.0-tree",
-      //     "now":"1469060512",
-      //     "sensors": {
-      //       "uid": "000000",
-      //       "ph": "6.90",
-      //       "probes": {
-      //         "avg": { "temp_c": "26.81" }
-      //       }
-      //     }
-      // });
+        db.collection('SystemStatus').insertOne({ 'msg': "system ready", "date": get_current_date_string() });
+        console.log("Started up mongo connection.");
+
+        // recordSensorJSON( {
+        //     "hostname":"aqua",
+        //     "core_version":"0.0-tree",
+        //     "now":"1469060512",
+        //     "sensors": {
+        //       "uid": "000000",
+        //       "ph": "6.90",
+        //       "probes": {
+        //         "avg": { "temp_c": "26.81" }
+        //       }
+        //     }
+        // });
 
 
     });
@@ -574,7 +604,7 @@ function initIPAdress() {
 initIPAdress();
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-rest_server.listen(port, ipaddress, handleServerReady ); 
+rest_server.listen(port, ipaddress, handleServerReady);
 
 
 
