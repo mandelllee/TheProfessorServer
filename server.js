@@ -411,7 +411,10 @@ var handleEnvironmentReport = function(request, response) {
 
                 air_temp_f: "$sensors.bmp085.temp_f",
                 air_pressure: "$sensors.bmp085.pressure",
+                
                 air_humidity: "$sensors.dht11.dht_humidity",
+                air_temp_f_dht: "$sensors.dht11.dht_temp_f",
+                
                 _id: 0
             }
 
