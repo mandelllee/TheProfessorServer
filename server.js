@@ -16,7 +16,7 @@ var creds = {
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/apiworker%40quadroponic.iam.gserviceaccount.com"
 };
 //var creds = require('./google-generated-creds.json');
-
+var row_limit = 100 * 10;
 var provisionDevice = function(request, response) {
     var query = request.query;
 
@@ -387,7 +387,7 @@ var handleAquaReport = function(request, response) {
                 _id: 0
             }
         },
-        { $sort: { date: -1 } }, { $limit: 100 }
+        { $sort: { date: -1 } }, { $limit: row_limit }
     ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -416,7 +416,7 @@ var handleEnvironmentReport = function(request, response) {
             }
 
         },
-        { $sort: { date: -1 } }, { $limit: 100 }
+        { $sort: { date: -1 } }, { $limit: row_limit }
     ], function(err, result) {
 
         response.setHeader('Content-Type', 'application/json');
@@ -448,7 +448,7 @@ var handleSoilReport = function(request, response) {
                 _id: 0
             }
         },
-        { $sort: { date: -1 } }, { $limit: 100 }
+        { $sort: { date: -1 } }, { $limit: row_limit }
     ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
         response.setHeader("Access-Control-Allow-Origin", "*");
