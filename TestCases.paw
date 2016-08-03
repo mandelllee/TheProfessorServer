@@ -270,7 +270,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">["{\\n  \\"hostname\\":\\"aqua\\",\\n  \\"core_version\\":\\"0.0-s\\",\\n  \\"now\\":\\"1469060512\\",\\n  \\"sensors\\": {\\n    \\"uid\\": \\"000000\\",\\n    \\"ph\\": \\"6.90\\",\\n    \\"probes\\": {\\n      \\"avg\\": { \\"temp_c\\": \\"26.81\\" }\\n    }\\n   }\\n}\\n"]</attribute>
+        <attribute name="body" type="string">["{\\n  \\"hostname\\":\\"aqua\\",\\n  \\"core_version\\":\\"0.0-s\\",\\n  \\"now\\":\\"1469060512\\",\\n  \\"sensors\\": {\\n    \\"uid\\": \\"000000\\",\\n    \\"ph\\": \\"20.90\\",\\n    \\"probes\\": {\\n      \\"avg\\": { \\"temp_c\\": \\"26.81\\" }\\n    }\\n   }\\n}\\n"]</attribute>
         <attribute name="order" type="int64">2</attribute>
         <attribute name="name" type="string">LeafLift_API - recordValue Duplicate</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
@@ -296,9 +296,9 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">["{\\n  \\"hostname\\":\\"aqua\\",\\n  \\"core_version\\":\\"0.0-s\\",\\n  \\"now\\":\\"1469060512\\",\\n  \\"sensors\\": {\\n    \\"uid\\": \\"000000\\",\\n    \\"ph\\": \\"6.90\\",\\n    \\"probes\\": {\\n      \\"avg\\": { \\"temp_c\\": \\"26.81\\" }\\n    }\\n   }\\n}\\n"]</attribute>
+        <attribute name="body" type="string">["{\\n  \\"hostname\\":\\"aqua\\",\\n  \\"core_version\\":\\"0.0-s\\",\\n  \\"now\\":\\"1469060512\\",\\n  \\"sensors\\": {\\n    \\"uid\\": \\"000000\\",\\n    \\"ph\\": \\"20.90\\",\\n    \\"probes\\": {\\n      \\"avg\\": { \\"temp_c\\": \\"26.81\\" }\\n    }\\n   }\\n}\\n"]</attribute>
         <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string">LeafLift_API - recordValue Duplicate</attribute>
+        <attribute name="name" type="string">LeafLift_API - sensordata</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z119"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z125 z124"></relationship>

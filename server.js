@@ -377,7 +377,9 @@ var handleAquaReport = function(request, response) {
                 //cal: "$sensors.soil.calibration",
                 ph: "$sensors.ph",
                 temp: "$sensors.probes.avg.temp_c",
-
+                flow_lpm:"$sensors.flow.lpm",
+                flow_lph:"$sensors.flow.lph",
+       
                 //temp_f:{$multiply: [ new Number("$sensors.probes.avg.temp_c").valueOf(), 2 ]},
                 //             soil_1_cal:"$sensors.soil.calibration.wet.1",
                 // 
@@ -464,6 +466,17 @@ var handleSoilReport = function(request, response) {
 rest_server.get(/\/static\/?.*/, restify.serveStatic({
     directory: __dirname
 }));
+
+
+var serveStatic = require('serve-static-restify');
+
+rest_server.pre(serveStatic('dashboard/', {'index': ['index.html']}));
+
+// rest_server.get(/\/dashboard\/?.*/, restify.serveStatic({
+//     directory: __dirname,
+//     index: 'index.html'
+// }));
+
 
 rest_server.get('/v1/record', recordData);
 rest_server.get('/v1/provision', provisionDevice);
