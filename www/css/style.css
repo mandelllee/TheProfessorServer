@@ -338,19 +338,27 @@ Images block
 }
 .cd-images-list > li {
   height: 250px;
-  background: #979c9c url(../img/page1-bkd.jpg) no-repeat center center;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(2) {
-  background: #343642 url(../img/page2-bkd.jpg) no-repeat center center;
+  background: #343642;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(3) {
-  background: #982b3c url(../img/page3-bkd.jpg) no-repeat center center;
+  background: #982b3c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(4) {
-  background: #338899 url(../img/page4-bkd.jpg) no-repeat center center;
+  background: #338899;
+  background-size: cover;
+}
+.cd-images-list > li:nth-of-type(5) {
+  background: #330099;
+  background-size: cover;
+}
+.cd-images-list > li:nth-of-type(6) {
+  background: #448822;
   background-size: cover;
 }
 .cd-images-list > li > a {

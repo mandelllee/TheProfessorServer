@@ -1,6 +1,26 @@
-var plotData = function(url, elementid, field, title, error_margin) {
+var renderSensorCharts = function( hostname, array_of_charts ){
+
+    var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
+
+    for( var n=0; n<array_of_charts.length; n++ ){
+
+        var chart_row = array_of_charts[n];
+
+        var url = cmd + chart_row.report+'/'+hostname;
+
+        var elementid = chart_row.chart;
+        var field = chart_row.field;
+        var title = chart_row.title;
+        var error_margin = chart_row.error_margin;
+        var chart_container_id = hostname +"-charts";
+        plotData(url, elementid, field, title, error_margin,chart_container_id);
+    }
+};
+
+var plotData = function(url, elementid, field, title, error_margin,chart_container_id) {
     	var host = '';
-    	if (error_margin === undefined) error_margin = 20;
+        if (error_margin === undefined) error_margin = 20;
+        if (chart_container_id === undefined) chart_container_id = 'charts';
 
 
     	Plotly.d3.json(host + url, function(rows) {
@@ -42,9 +62,9 @@ var plotData = function(url, elementid, field, title, error_margin) {
     	        }, // set the y axis title
     	        xaxis: {
     	            showgrid: false,
-    	            tickangle: 0,
-    	            tickformat: "%a %I:%M%p %e-%b",
-    	            _tickformat: "%a %e-%b",
+    	            tickangle: -45,
+    	            _tickformat: "%a %I:%M%p %e-%b",
+    	            tickformat: "%e-%b \n%I:%M%p",
     	            categoryorder: "category decending"
     	        },
     	        wide_margin: { // update the left, bottom, right, top margin
@@ -61,7 +81,7 @@ var plotData = function(url, elementid, field, title, error_margin) {
     	        }
     	    };
 
-    	    var base = document.getElementById('charts');
+    	    var base = document.getElementById(chart_container_id);
     	    var element = document.createElement("div");
     	    var hr = document.createElement("hr");
     	    element.id = elementid;

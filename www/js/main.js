@@ -103,8 +103,16 @@ jQuery(document).ready(function($) {
 
     }
 
-    addPage("Start Page", '<div id="start-content"></div>', true);
-    addPage("Sensors", '<div id="charts"></div>', false);
+    addPage("Overview", '<div id="start-content"></div>', true);
+    //addPage("Sensors", '<div id="charts"></div>', false);
+
+
+    addPage("Node:potato", '<div id="potato-charts"></div>', false);
+    addPage("Node:aqua", '<div id="aqua-charts"></div>', false);
+    addPage("Node:pepper", '<div id="pepper-charts"></div>', false);
+    addPage("Node:tempo", '<div id="tempo-charts"></div>', false);
+    addPage("Node:ford", '<div id="ford-charts"></div>', false);
+
     addPage("Settings", '<div id="settings"></div>', false);
 
     //setTimeout( showPlottedData, 2000 );
@@ -112,29 +120,52 @@ jQuery(document).ready(function($) {
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
 
 
-    plotData(cmd + 'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
-
-    plotData(cmd + 'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
-    plotData(cmd + 'soil/pepper', "soil_chart_pepper1", "soil_1", "Soil Moisture (Dome)");
-    plotData(cmd + 'environment/pepper', "humidity_chart_pepper", "air_humidity", "Humidity (Aquarium Room)", 5);
-
-    plotData(cmd + 'environment/pepper', "temp_chart_pepper", "air_temp_f_dht", "Temp(F) (Aquarium Room)", 5);
-
-    plotData(cmd + 'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
-    plotData(cmd + 'water/aqua', "temp_cart_aqua", "temp", "Aquarium Temp (f)", .5);
-    plotData(cmd + 'water/aqua', "flow_cart_aqua", "water_flow_lph", "Aquarium Flow (LPH)", .5);
+    renderSensorCharts( "potato", [
+        { title: "Soil Moisture (Mint)", report: "soil", field:"soil_1", chart:"soil_chart_potato", error_margin: 20 }
+    ]);
+    //plotData(cmd + 'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
 
 
+    renderSensorCharts( "pepper", [
+        { title: "Soil Moisture (Succulent)", report: "soil", field:"soil_3", chart:"soil_chart_pepper3", error_margin: 20 },
+        { title: "Soil Moisture (Dome)", report: "soil", field:"soil_1", chart:"soil_chart_pepper1", error_margin: 20 },
+        { title: "Humidity (Aquarium Room)", report: "environment", field:"soil_1", chart:"humidity_chart_pepper", error_margin: 5 },
+        { title: "Air Temp (Aquarium Room)", report: "environment", field:"temp_chart_pepper", chart:"humidity_chart_pepper", error_margin: 5 }
+    ]);
+
+    // plotData(cmd + 'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
+    // plotData(cmd + 'soil/pepper', "soil_chart_pepper1", "soil_1", "Soil Moisture (Dome)");
+    
+    // plotData(cmd + 'environment/pepper', "humidity_chart_pepper", "air_humidity", "Humidity (Aquarium Room)", 5);
+    // plotData(cmd + 'environment/pepper', "temp_chart_pepper", "air_temp_f_dht", "Temp(F) (Aquarium Room)", 5);
+
+    renderSensorCharts( "aqua", [
+        { title: "Aquarium pH", report: "water", field:"ph", chart:"ph_cart_aqua", error_margin: .02 },
+        { title: "Aquarium Temp (f)", report: "water", field:"temp", chart:"temp_cart_aqua", error_margin: .5 },
+        { title: "Aquarium Flow (LPH)", report: "water", field:"water_flow_lph", chart:"flow_cart_aqua", error_margin: .5 }
+    ]);
+    // plotData(cmd + 'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
+    // plotData(cmd + 'water/aqua', "temp_cart_aqua", "temp", "Aquarium Temp (f)", .5);
+    // plotData(cmd + 'water/aqua', "flow_cart_aqua", "water_flow_lph", "Aquarium Flow (LPH)", .5);
 
 
-    plotData(cmd + 'soil/ford', "soil_chart_ford", "soil_1", "Soil Moisture (Basil)", 2);
-    plotData(cmd + 'environment/ford', "humidity_chart_ford", "air_humidity", "Humidity(Basil)", 2);
-    plotData(cmd + 'environment/ford', "temp_chart_ford", "air_temp_f", "Temp(F) (Basil)", 2);
+    // plotData(cmd + 'soil/ford', "soil_chart_ford", "soil_1", "Soil Moisture (Basil)", 2);
+    // plotData(cmd + 'environment/ford', "humidity_chart_ford", "air_humidity", "Humidity(Basil)", 2);
+    // plotData(cmd + 'environment/ford', "temp_chart_ford", "air_temp_f", "Temp(F) (Basil)", 2);
+    renderSensorCharts( "ford", [
+        { title: "Soil Moisture (Basil)", report: "soil", field:"soil_1", chart:"soil_chart_ford", error_margin: 2 },
+        { title: "Humidity(Basil)", report: "environment", field:"air_humidity", chart:"humidity_chart_ford", error_margin: 2 },
+        { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_ford", error_margin: 2 }
+    ]);
 
-    plotData(cmd + 'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
-    plotData(cmd + 'environment/tempo', "humidity_chart_tempo", "air_humidity", "Humidity (window)", 5);
-    plotData(cmd + 'environment/tempo', "temp_chart_tempo", "air_temp_f", "Temp (F) (window)", 2);
-
+    // plotData(cmd + 'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
+    // plotData(cmd + 'environment/tempo', "humidity_chart_tempo", "air_humidity", "Humidity (window)", 5);
+    // plotData(cmd + 'environment/tempo', "temp_chart_tempo", "air_temp_f", "Temp (F) (window)", 2);
+    renderSensorCharts( "tempo", [
+        { title: "LUX (window)", report: "environment", field:"light_lux", chart:"lux_chart_tempo", error_margin: 500 },
+        { title: "Humidity (window)", report: "environment", field:"air_humidity", chart:"humidity_chart_tempo", error_margin: 5 },
+        { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_tempo", error_margin: 2 }
+    ]);
 
     // var aquariumHost = "aqua.local";
 
