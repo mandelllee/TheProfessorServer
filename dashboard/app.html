@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- CSS reset -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Resource style -->
+    <script src="js/modernizr.js"></script>
+    <!-- Modernizr -->
+</head>
+
+<body>
+    <title>The Professor - data</title>
+    <main>
+        <div class="cd-image-block">
+            <ul id="left-page-list" class="cd-images-list">
+            </ul>
+            <!-- .cd-images-list -->
+        </div>
+        <!-- .cd-image-block -->
+        <div class="cd-content-block">
+            <ul id="right-page-list">
+            </ul>
+            <button class="cd-close">Close</button>
+        </div>
+        <!-- .cd-content-block -->
+        <ul class="block-navigation">
+            <li>
+                <button class="cd-prev inactive">&larr; Prev</button>
+            </li>
+            <li>
+                <button class="cd-next">Next &rarr;</button>
+            </li>
+        </ul>
+        <!-- .block-navigation -->
+    </main>
+    <!-- .cd-main -->
+    <div style="display:none;" class="cd-nugget-info">
+        <a id="discover-button" href="javascript:alert('discovering...');">
+			Discover
+		</a>
+    </div>
+    <!-- cd-nugget-info -->
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Resource jQuery -->
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/plot.js"></script>
+</body>
+
+</html>
