@@ -103,13 +103,13 @@ jQuery(document).ready(function($) {
 
     }
 
-    addPage("Overview", '<div id="start-content"></div>', true);
+    addPage("Overview", '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
     //addPage("Sensors", '<div id="charts"></div>', false);
 
 
     addPage("Node:potato", '<div id="potato-charts"></div>', false);
-    addPage("Node:aqua", '<div id="aqua-charts"></div>', false);
     addPage("Node:pepper", '<div id="pepper-charts"></div>', false);
+    addPage("Node:aqua", '<div id="aqua-charts"></div>', false);
     addPage("Node:tempo", '<div id="tempo-charts"></div>', false);
     addPage("Node:ford", '<div id="ford-charts"></div>', false);
 
