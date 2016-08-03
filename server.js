@@ -463,19 +463,11 @@ var handleSoilReport = function(request, response) {
 
 }
 
-rest_server.get(/\/static\/?.*/, restify.serveStatic({
-    directory: __dirname
-}));
-
 
 var serveStatic = require('serve-static-restify');
 
-rest_server.pre(serveStatic('dashboard/', {'index': ['index.html']}));
+rest_server.pre(serveStatic('www/', {'index': ['index.html']}));
 
-// rest_server.get(/\/dashboard\/?.*/, restify.serveStatic({
-//     directory: __dirname,
-//     index: 'index.html'
-// }));
 
 
 rest_server.get('/v1/record', recordData);

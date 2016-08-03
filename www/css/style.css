@@ -67,7 +67,7 @@ xnugget info
 .cd-nugget-info .cd-nugget-info-arrow {
   fill: #ffffff;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .cd-nugget-info a {
     right: 3em;
     padding: 1.2em 1em;
@@ -288,7 +288,7 @@ xcarbonads
   font-size: 11px;
   line-height: 15px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   #carbonads-container,
   #ui8ads-container {
     display: block;
@@ -325,7 +325,7 @@ Images block
   -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
   transition: opacity 0.3s 0s, visibility 0s 0s;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .cd-image-block::before {
     display: none;
   }
@@ -370,7 +370,7 @@ Images block
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .cd-images-list::before {
     /* never visible - this is used in jQuery to check the current MQ */
     content: 'desktop';
@@ -516,7 +516,7 @@ Content block
   -o-transform: scale(1.2);
   transform: scale(1.2);
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .cd-content-block {
     /* reset style */
     position: static;
@@ -549,7 +549,7 @@ Content block
 Desktop slider - both image and content blocks
 
 ---------------------------------------------- */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .cd-image-block,
   .cd-content-block {
     /* slider style - desktop version only */
@@ -618,7 +618,7 @@ Slider navigation
   /* this is the slider navigation - desktop version only */
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .block-navigation {
     display: block;
     position: fixed;
@@ -669,7 +669,7 @@ Slider navigation
 Javascript disabled
 
 -------------------------------- */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .no-js .cd-content-block {
     display: none;
   }

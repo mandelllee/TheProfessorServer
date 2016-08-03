@@ -75,7 +75,7 @@ jQuery(document).ready(function($) {
 
         var d3 = Plotly.d3;
 
-       var gd3 = d3.select('#charts');
+        var gd3 = d3.select('#charts');
 
 
         var gd = gd3.node();
@@ -103,37 +103,37 @@ jQuery(document).ready(function($) {
 
     }
 
-	addPage( "Start Page", '<div id="start-content"></div>', true );
-	addPage( "Charts", '<div id="charts"></div>', false );
-addPage( "Settings", '<div id="settings"></div>', false );
+    addPage("Start Page", '<div id="start-content"></div>', true);
+    addPage("Charts", '<div id="charts"></div>', false);
+    addPage("Settings", '<div id="settings"></div>', false);
 
     //setTimeout( showPlottedData, 2000 );
 
-     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
+    var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
 
 
-    plotData(cmd+'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
+    plotData(cmd + 'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
 
-    plotData(cmd+'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
-    plotData(cmd+'soil/pepper', "soil_chart_pepper1", "soil_1", "Soil Moisture (Dome)");
-    plotData(cmd+'environment/pepper', "humidity_chart_pepper", "air_humidity", "Humidity (Aquarium Room)", 5);
-    
-    plotData(cmd+'environment/pepper', "temp_chart_pepper", "air_temp_f_dht", "Temp(F) (Aquarium Room)", 5);
-    
-    plotData(cmd+'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
-    plotData(cmd+'water/aqua', "temp_cart_aqua", "temp", "Aquarium Temp (f)", .5);
-	plotData(cmd+'water/aqua', "flow_cart_aqua", "water_flow_lph", "Aquarium Flow (LPH)", .5);
+    plotData(cmd + 'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
+    plotData(cmd + 'soil/pepper', "soil_chart_pepper1", "soil_1", "Soil Moisture (Dome)");
+    plotData(cmd + 'environment/pepper', "humidity_chart_pepper", "air_humidity", "Humidity (Aquarium Room)", 5);
 
+    plotData(cmd + 'environment/pepper', "temp_chart_pepper", "air_temp_f_dht", "Temp(F) (Aquarium Room)", 5);
 
+    plotData(cmd + 'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
+    plotData(cmd + 'water/aqua', "temp_cart_aqua", "temp", "Aquarium Temp (f)", .5);
+    plotData(cmd + 'water/aqua', "flow_cart_aqua", "water_flow_lph", "Aquarium Flow (LPH)", .5);
 
 
-	plotData(cmd+'soil/ford', "soil_chart_ford", "soil_1", "Soil Moisture (Basil)", 2);
-	plotData(cmd+'environment/ford', "humidity_chart_ford", "air_humidity", "Humidity(Basil)", 2);
-	plotData(cmd+'environment/ford', "temp_chart_ford", "air_temp_f", "Temp(F) (Basil)", 2);
 
-    plotData(cmd+'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
-    plotData(cmd+'environment/tempo', "humidity_chart_tempo", "air_humidity", "Humidity (window)", 5);
-    plotData(cmd+'environment/tempo', "temp_chart_tempo", "air_temp_f", "Temp (F) (window)", 2);
+
+    plotData(cmd + 'soil/ford', "soil_chart_ford", "soil_1", "Soil Moisture (Basil)", 2);
+    plotData(cmd + 'environment/ford', "humidity_chart_ford", "air_humidity", "Humidity(Basil)", 2);
+    plotData(cmd + 'environment/ford', "temp_chart_ford", "air_temp_f", "Temp(F) (Basil)", 2);
+
+    plotData(cmd + 'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
+    plotData(cmd + 'environment/tempo', "humidity_chart_tempo", "air_humidity", "Humidity (window)", 5);
+    plotData(cmd + 'environment/tempo', "temp_chart_tempo", "air_temp_f", "Temp (F) (window)", 2);
 
 
     // var aquariumHost = "aqua.local";
