@@ -104,7 +104,7 @@ jQuery(document).ready(function($) {
     }
 
     addPage("Start Page", '<div id="start-content"></div>', true);
-    addPage("Charts", '<div id="charts"></div>', false);
+    addPage("Sensors", '<div id="charts"></div>', false);
     addPage("Settings", '<div id="settings"></div>', false);
 
     //setTimeout( showPlottedData, 2000 );
