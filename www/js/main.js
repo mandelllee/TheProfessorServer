@@ -107,6 +107,7 @@ jQuery(document).ready(function($) {
     //addPage("Sensors", '<div id="charts"></div>', false);
 
 
+    addPage("Node:piru", '<div id="piru-charts"></div>', false);
     addPage("Node:potato", '<div id="potato-charts"></div>', false);
     addPage("Node:pepper", '<div id="pepper-charts"></div>', false);
     addPage("Node:aqua", '<div id="aqua-charts"></div>', false);
@@ -167,7 +168,15 @@ jQuery(document).ready(function($) {
         { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_tempo", error_margin: 2 }
     ]);
 
-    // var aquariumHost = "aqua.local";
+   renderSensorCharts( "piru", [
+        { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 500 },
+        { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
+        { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 },
+        { title: "Temp (F) (Inside Box)", report: "environment", field:"air_temp_f", chart:"temp_inside_box_chart_piru", error_margin: 2 },
+        { title: "Reservior pH", report: "water", field:"ph", chart:"ph_cart_piru", error_margin: .02 },
+        { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 }
+    ]);
+ // var aquariumHost = "aqua.local";
 
     // var updateTankStatus = function() {
     //     $.getJSON("http://" + aquariumHost + "/sensors.json", function(data) {

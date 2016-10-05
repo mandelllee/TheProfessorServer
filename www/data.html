@@ -24,6 +24,8 @@
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
 
 
+    plotData(cmd+'environment/piru', "humidity_chart_piru", "air_humidity", "Humidity (Outdoor Humidity piru)", 5);
+
     plotData(cmd+'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
 
     plotData(cmd+'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
