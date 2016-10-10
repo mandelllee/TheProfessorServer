@@ -17,19 +17,19 @@ jQuery(document).ready(function($) {
 
     var pages = [];
 
-    var addPage = function(title, content, selected) {
+    var addPage = function(title, currentCondtions, content, selected) {
 
         var pageNum = pages.length;
 
 
-        var leftPage = $("<li><a href=\"#" + pageNum + "\"><h2>" + title + "</h2></a></li>");
+        var leftPage = $("<li><div><a href=\"#" + pageNum + "\"><h2>" + title + "</div> "  + currentCondtions +  "</li>");
         var rightPage = $("<li><div><h2>" + title + "</h2>" + content + "</div></li>");
 
         if (selected === true) {
             leftPage.addClass("is-selected");
             rightPage.addClass("is-selected");
         }
-        //rightPage.append( getLoremP( Math.random() * 4) );
+        //leftPage.append( getLoremP( Math.random() * 4) );
         rightPage.append('<div style="color:white;">' + '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' + '</div>');
 
         pages.push({
@@ -103,18 +103,17 @@ jQuery(document).ready(function($) {
 
     }
 
-    addPage("Overview", '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
+    addPage("Overview", '<div> </div>', '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
     //addPage("Sensors", '<div id="charts"></div>', false);
 
+    addPage("Node:piru", '<div id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
+    addPage("Node:potato", '<div id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
+    addPage("Node:pepper", '<div id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
+    addPage("Node:aqua", '<div id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
+    addPage("Node:tempo", '<div id="tempo-current-data"> </div>', '<div id="tempo-charts"></div>', false);
+    addPage("Node:ford", '<div id="ford-current-data"> </div>', '<div id="ford-charts"></div>', false);
 
-    addPage("Node:piru", '<div id="piru-charts"></div>', false);
-    addPage("Node:potato", '<div id="potato-charts"></div>', false);
-    addPage("Node:pepper", '<div id="pepper-charts"></div>', false);
-    addPage("Node:aqua", '<div id="aqua-charts"></div>', false);
-    addPage("Node:tempo", '<div id="tempo-charts"></div>', false);
-    addPage("Node:ford", '<div id="ford-charts"></div>', false);
-
-    addPage("Settings", '<div id="settings"></div>', false);
+    addPage("Settings", '<div> </div>', '<div id="settings"></div>', false);
 
     //setTimeout( showPlottedData, 2000 );
 

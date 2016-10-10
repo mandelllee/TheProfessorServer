@@ -14,7 +14,42 @@ var renderSensorCharts = function( hostname, array_of_charts ){
         var error_margin = chart_row.error_margin;
         var chart_container_id = hostname +"-charts";
         plotData(url, elementid, field, title, error_margin,chart_container_id);
-    }
+        }
+        displayCurrentConditions(hostname);
+    };
+
+var displayCurrentConditions = function(hostname) {
+    var cmd_local = "http://127.0.0.1:3000/v1/report/";
+    var current_conditions_url = cmd_local + "currentConditions" +'/'+hostname;
+ 
+    var jqxhr = $.getJSON( current_conditions_url, function(data) {
+      console.log( "success: " + data);
+        var current_conditions_container_id = hostname +"-current-data";
+        var base = document.getElementById(current_conditions_container_id);
+        var dataArray = data[0];
+        var element = document.createElement("div");
+        element.appendChild(document.createTextNode("Current Condtions"));
+           base.appendChild(element);
+        for (var key in dataArray) {
+              console.log("key: %o, value: %o", key, dataArray[key]);
+              element = document.createElement("div");
+                var divContent = document.createTextNode(key + ": " + dataArray[key]);
+                element.appendChild(divContent);
+         base.appendChild(element);
+       }
+            })
+      .done(function() {
+        console.log( "second success" );
+      })
+      .fail(function() {
+        console.log( "error" );
+      })
+      .always(function() {
+        console.log( "complete" );
+      });
+   //$.get(url, function (result){
+    //    alert(result);
+   // });
 };
 
 var plotData = function(url, elementid, field, title, error_margin,chart_container_id) {
@@ -87,9 +122,8 @@ var plotData = function(url, elementid, field, title, error_margin,chart_contain
     	    element.id = elementid;
 
     	    if (base.children.length > 0) {
-    	        base.appendChild(hr);
-
-    	    }
+   	        base.appendChild(hr);
+    	    } 
     	    base.appendChild(element);
 
     	    Plotly.plot(element, [trace], layout, {
