@@ -499,7 +499,7 @@ var handleCurrentConditionsReport = function (request, response) {
 				bmpAltitude: "$sensors.bmp085.altitude",
 				bmpPressure: "$sensors.bmp085.pressure",
 				dhtTemperature_f: "$sensors.dht11.dht_temp_f",
-				dhtHumidity: "$sensors.dht11.dht_humididty",
+				dhtHumidity: "$sensors.dht11.dht_humidity",
 				soil1: "$sensors.soil.sensors.1",
 				soil2: "$sensors.soil.sensors.2",
 				soil3: "$sensors.soil.sensors.3",
