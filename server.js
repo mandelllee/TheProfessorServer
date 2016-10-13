@@ -504,7 +504,7 @@ var handleCurrentConditionsReport = function (request, response) {
 				soil1: "$sensors.soil.sensors.1",
 				soil2: "$sensors.soil.sensors.2",
 				soil3: "$sensors.soil.sensors.3",
-				soil4: "$sensors.soil.sensors.4"
+				soil4: "$sensors.soil.sensors.4",
 				ec: "$sensors.EC.ec",
 				tds: "$sensors.EC.tds",
 				salinity: "$sensors.EC.salinity",
