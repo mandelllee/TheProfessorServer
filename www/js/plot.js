@@ -19,7 +19,7 @@ var renderSensorCharts = function( hostname, array_of_charts ){
     };
 
 var displayCurrentConditions = function(hostname) {
-    var cmd_local = "http://127.0.0.1:3000/v1/report/";
+    var cmd_local = "http://api-quadroponic.rhcloud.com/v1/report/";
     var current_conditions_url = cmd_local + "currentConditions" +'/'+hostname;
  
     var jqxhr = $.getJSON( current_conditions_url, function(data) {
