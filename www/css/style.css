@@ -674,9 +674,28 @@ Slider navigation
 
 /* The professor customization*/
 
-.current-data {
-    font-size: 200%;
-    color: blue;
+@media (min-width: 1200px) {
+
+  .current-data {
+      font-size: 200%;
+      color: blue;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+
+  .current-data {
+      font-size: 100%;
+      color: blue;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .current-data {
+      font-size: 30%;
+      color: blue;
+  }
 }
 
 /* -------------------------------- 
