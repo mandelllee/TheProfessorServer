@@ -26,6 +26,10 @@ var displayCurrentConditions = function(hostname) {
       console.log( "success: " + data);
         var current_conditions_container_id = hostname +"-current-data";
         var base = document.getElementById(current_conditions_container_id);
+        //clear any content before adding new. There has got to be a better way of doing this.
+        while(base.hasChildNodes()) {
+            base.removeChild(base.firstChild);
+        }
         var dataArray = data[0];
         var element = document.createElement("div");
         element.appendChild(document.createTextNode("Current Condtions"));
