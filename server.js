@@ -1,6 +1,7 @@
 var GoogleSpreadsheet = require('google-spreadsheet');
 var express = require('express');
 var async = require('async');
+var moment = require('moment');
 
 
 var creds = {
@@ -322,9 +323,15 @@ var handleRecordSensorJSON = function(request, response) {
     //var json = JSON.stringify( request.body );
     var json = (request.body);
     json.timestamp = getNowTimestamp();
-    json.dateTime = new Date();
+    var currentDateTime =  new Date();
+    var currentDateString = moment(currentDateTime).format("dddd, MMMM Do YYYY");
+    var currentTimeString = moment(currentDateTime).format("h:mm:ss A");
+    json.dateTime = currentDateTime;
+    json.dateString = currentDateString;
+    json.timeString = currentTimeString;
 
-    console.log(request);
+
+    //console.log(request);
     //console.log( "hostname: " + json.hostname );
 
     recordSensorJSON(json, function(err, doc) {
@@ -508,7 +515,9 @@ var handleCurrentConditionsReport = function (request, response) {
 				ec: "$sensors.EC.ec",
 				tds: "$sensors.EC.tds",
 				salinity: "$sensors.EC.salinity",
-				specificGravity: "$sensors.EC.specificGravity"
+				specificGravity: "$sensors.EC.specificGravity",
+                date: "$dateString",
+                time: "$timeString"
 			}
 		},
 

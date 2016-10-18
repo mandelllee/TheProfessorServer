@@ -672,6 +672,13 @@ Slider navigation
   }
 }
 
+/* The professor customization*/
+
+.current-data {
+    font-size: 200%;
+    color: blue;
+}
+
 /* -------------------------------- 
 
 Javascript disabled

@@ -106,12 +106,13 @@ jQuery(document).ready(function($) {
     addPage("Overview", '<div> </div>', '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
     //addPage("Sensors", '<div id="charts"></div>', false);
 
-    addPage("Node:piru", '<div id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
-    addPage("Node:potato", '<div id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
-    addPage("Node:pepper", '<div id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
-    addPage("Node:aqua", '<div id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
-    addPage("Node:tempo", '<div id="tempo-current-data"> </div>', '<div id="tempo-charts"></div>', false);
-    addPage("Node:ford", '<div id="ford-current-data"> </div>', '<div id="ford-charts"></div>', false);
+    addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
+    addPage("Node:fillmore", '<div class=current-data id="fillmore-current-data"></div>', '<div id="fillmore-charts"></div>', false);
+    addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
+    addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
+    addPage("Node:aqua", '<div class=current-data id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
+    addPage("Node:tempo", '<div class=current-data id="tempo-current-data"> </div>', '<div id="tempo-charts"></div>', false);
+    addPage("Node:ford", '<div class=current-data id="ford-current-data"> </div>', '<div id="ford-charts"></div>', false);
 
     addPage("Settings", '<div> </div>', '<div id="settings"></div>', false);
 
@@ -175,6 +176,13 @@ jQuery(document).ready(function($) {
         { title: "Reservior pH", report: "water", field:"ph", chart:"ph_cart_piru", error_margin: .02 },
         { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 }
     ]);
+
+    renderSensorCharts( "fillmore", [
+        { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_fillmore", error_margin: 500 },
+        { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_fillmore", error_margin: 5 },
+        { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_fillmore", error_margin: 2 },
+    ]);
+
  // var aquariumHost = "aqua.local";
 
     // var updateTankStatus = function() {
