@@ -322,7 +322,7 @@ var handleRecordSensorJSON = function(request, response) {
     //var json = JSON.stringify( request.body );
     var json = (request.body);
     json.timestamp = getNowTimestamp();
-    json.isoDate = ISODate();
+    json.dateTime = new Date();
 
     console.log(request);
     //console.log( "hostname: " + json.hostname );
