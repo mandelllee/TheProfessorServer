@@ -693,7 +693,7 @@ Slider navigation
 @media (max-width: 480px) {
 
   .current-data {
-      font-size: 30%;
+      font-size: 75%;
       color: blue;
   }
 }
