@@ -290,6 +290,10 @@ var handleRecordConfigJSON = function(request, response) {
     //var json = JSON.stringify( request.body );
     var json = (request.body);
 
+    //add iso date for human readability
+    var currentDateTime =  new Date();
+    json.dateTime = currentDateTime;
+ 
     json.timestamp = getNowTimestamp();
 
     console.log(request);

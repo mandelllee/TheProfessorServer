@@ -2,6 +2,13 @@ var renderSensorCharts = function( hostname, array_of_charts ){
 
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
 
+    var chart_container_id = hostname +"-charts";
+    var base = document.getElementById(chart_container_id);
+    //clear any content before adding new. There has got to be a better way of doing this.
+    while(base.hasChildNodes()) {
+        base.removeChild(base.firstChild);
+    }
+
     for( var n=0; n<array_of_charts.length; n++ ){
 
         var chart_row = array_of_charts[n];
@@ -12,7 +19,6 @@ var renderSensorCharts = function( hostname, array_of_charts ){
         var field = chart_row.field;
         var title = chart_row.title;
         var error_margin = chart_row.error_margin;
-        var chart_container_id = hostname +"-charts";
         plotData(url, elementid, field, title, error_margin,chart_container_id);
         }
         displayCurrentConditions(hostname);
@@ -124,6 +130,7 @@ var plotData = function(url, elementid, field, title, error_margin,chart_contain
     	    var element = document.createElement("div");
     	    var hr = document.createElement("hr");
     	    element.id = elementid;
+
 
     	    if (base.children.length > 0) {
    	        base.appendChild(hr);
