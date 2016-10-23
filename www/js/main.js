@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
     //addPage("Sensors", '<div id="charts"></div>', false);
 
     addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
-    addPage("Node:fillmore", '<div class=current-data id="fillmore-current-data"></div>', '<div id="fillmore-charts"></div>', false);
+    addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
     addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
     addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
     addPage("Node:aqua", '<div class=current-data id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
