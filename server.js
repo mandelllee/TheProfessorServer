@@ -370,13 +370,14 @@ var handleHealthRequest = function(request, response) {
     response.writeHead(200);
     response.end("node");
 };
-var handleAquaReport = function(request, response) {
+var handleAquaReport  = function(request, response) {
 
     console.log("Water report for [" + request.params.nodename + "]");
 
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
-        }, {
+        },
+        { $sort: { timestamp: -1 } }, { $limit: row_limit }, {
             $project: {
                 hostname: "$hostname",
                 //now:"$now",
@@ -403,13 +404,12 @@ var handleAquaReport = function(request, response) {
                 //             //cal:"$sensors.soil.calibration",
                 _id: 0
             }
-        },
-        { $sort: { date: -1 } }, { $limit: row_limit }
+        }
     ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.json(result);
-    });
+     });
 
 };
 var handleEnvironmentReport = function(request, response) {
@@ -417,7 +417,8 @@ var handleEnvironmentReport = function(request, response) {
     console.log("Environment Report for [" + request.params.nodename + "]");
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
-        }, {
+        },
+        { $sort: { timestamp: -1 } }, { $limit: row_limit }, {
             $project: {
                 hostname: "$hostname",
                 //now:"$now",
@@ -435,8 +436,7 @@ var handleEnvironmentReport = function(request, response) {
                 _id: 0
             }
 
-        },
-        { $sort: { date: -1 } }, { $limit: row_limit }
+        }
     ], function(err, result) {
 
         response.setHeader('Content-Type', 'application/json');
@@ -452,7 +452,8 @@ var handleSoilReport = function(request, response) {
 
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
-        }, {
+        },
+        { $sort: { timestamp: -1 } }, { $limit: row_limit }, {
             $project: {
                 hostname: "$hostname",
                 //now:"$now",
@@ -467,8 +468,7 @@ var handleSoilReport = function(request, response) {
                 //cal:"$sensors.soil.calibration",
                 _id: 0
             }
-        },
-        { $sort: { date: -1 } }, { $limit: row_limit }
+        }
     ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
         response.setHeader("Access-Control-Allow-Origin", "*");
