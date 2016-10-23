@@ -391,7 +391,10 @@ var handleAquaReport = function(request, response) {
                 temp: "$sensors.probes.avg.temp_c",
                 flow_lpm:"$sensors.flow.lpm",
                 flow_lph:"$sensors.flow.lph",
-       
+                EC:"$sensors.EC.ec",
+                TDS:"$sensors.EC.tds",
+                Salinity:"$sensors.EC.salinity",
+
                 //temp_f:{$multiply: [ new Number("$sensors.probes.avg.temp_c").valueOf(), 2 ]},
                 //             soil_1_cal:"$sensors.soil.calibration.wet.1",
                 // 
@@ -516,9 +519,9 @@ var handleCurrentConditionsReport = function (request, response) {
 				soil2: "$sensors.soil.sensors.2",
 				soil3: "$sensors.soil.sensors.3",
 				soil4: "$sensors.soil.sensors.4",
-				ec: "$sensors.EC.ec",
-				tds: "$sensors.EC.tds",
-				salinity: "$sensors.EC.salinity",
+				EC: "$sensors.EC.ec",
+				TDS: "$sensors.EC.tds",
+				Salinity: "$sensors.EC.salinity",
 				specificGravity: "$sensors.EC.specificGravity",
                 date: "$dateString",
                 time: "$timeString"
@@ -534,7 +537,7 @@ var handleCurrentConditionsReport = function (request, response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.json(result);
 
-	console.log(result);
+	//console.log(result);
 });
 
 }

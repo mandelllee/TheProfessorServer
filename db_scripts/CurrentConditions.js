@@ -37,7 +37,7 @@
 				soil2: "$sensors.soil.sensors.2",
 				soil3: "$sensors.soil.sensors.3",
 				soil4: "$sensors.soil.sensors.4",
-				ec: "$sensors.EC.ec",
+				EC: "$sensors.EC.ec",
 				tds: "$sensors.EC.tds",
 				salinity: "$sensors.EC.salinity",
 				specificGravity: "$sensors.EC.specificGravity"

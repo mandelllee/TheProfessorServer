@@ -174,13 +174,16 @@ jQuery(document).ready(function($) {
             { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 },
             { title: "Temp (F) (Inside Box)", report: "environment", field:"air_temp_f", chart:"temp_inside_box_chart_piru", error_margin: 2 },
             { title: "Reservior pH", report: "water", field:"ph", chart:"ph_cart_piru", error_margin: .02 },
-            { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 }
-        ]);
+            { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 },
+            { title: "EC", report: "water", field:"EC", chart:"ec_chart_piru", error_margin: .02},
+            { title: "TDS", report: "water", field:"TDS", chart:"tds_chart_piru", error_margin: 2},
+            { title: "Salinity", report: "water", field:"Salinity", chart:"salinity_chart_piru", error_margin: 1}
+         ]);
 
-        renderSensorCharts( "fillmore", [
-            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_fillmore", error_margin: 500 },
-            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_fillmore", error_margin: 5 },
-            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_fillmore", error_margin: 2 },
+        renderSensorCharts( "EastVillage", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_EastVillage", error_margin: 500 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_EastVillage", error_margin: 5 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EastVillage", error_margin: 2 },
         ]);
     };
 
