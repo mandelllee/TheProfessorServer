@@ -128,10 +128,10 @@ jQuery(document).ready(function($) {
 
 
         renderSensorCharts( "pepper", [
-            { title: "Soil Moisture (Succulent)", report: "soil", field:"soil_3", chart:"soil_chart_pepper3", error_margin: 20 },
+            { title: "Soil Moisture (Succulent)", report: "soil", field:"soil_3", chart:"soil_chart_pepper", error_margin: 20 },
             { title: "Soil Moisture (Dome)", report: "soil", field:"soil_1", chart:"soil_chart_pepper1", error_margin: 20 },
-            { title: "Humidity (Aquarium Room)", report: "environment", field:"soil_1", chart:"humidity_chart_pepper", error_margin: 5 },
-            { title: "Air Temp (Aquarium Room)", report: "environment", field:"temp_chart_pepper", chart:"humidity_chart_pepper", error_margin: 5 }
+            { title: "Humidity (Aquarium Room)", report: "environment", field:"air_humidity", chart:"humidity_chart_pepper", error_margin: 5 },
+            { title: "Air Temp (Aquarium Room)", report: "environment", field:"air_temp_f_dht", chart:"humidity_chart_pepper", error_margin: 5 }
         ]);
 
         // plotData(cmd + 'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
@@ -156,7 +156,7 @@ jQuery(document).ready(function($) {
         renderSensorCharts( "ford", [
             { title: "Soil Moisture (Basil)", report: "soil", field:"soil_1", chart:"soil_chart_ford", error_margin: 2 },
             { title: "Humidity(Basil)", report: "environment", field:"air_humidity", chart:"humidity_chart_ford", error_margin: 2 },
-            { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_ford", error_margin: 2 }
+            { title: "Temp (F) (window)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_ford", error_margin: 2 }
         ]);
 
         // plotData(cmd + 'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
