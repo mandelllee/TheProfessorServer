@@ -315,7 +315,7 @@ var handleRecordConfigJSON = function(request, response) {
 var recordConfigJSON = function(json, callback) {
 
     console.log(json);
-    var r = mongo_db.collection('ConfigData').insert(json, callback);
+    var r = mongo_db.collection('ConfigData').insertOne(json, callback);
 
 };
 
@@ -353,7 +353,7 @@ var recordSensorJSON = function(json, callback) {
     console.log(json);
 
 
-    var r = mongo_db.collection('SensorData').insert(json, callback);
+    var r = mongo_db.collection('SensorData').insertOne(json, callback);
 
 
 };
