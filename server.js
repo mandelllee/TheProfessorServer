@@ -432,7 +432,9 @@ var handleEnvironmentReport = function(request, response) {
                 
                 air_humidity: "$sensors.dht11.dht_humidity",
                 air_temp_f_dht: "$sensors.dht11.dht_temp_f",
-                
+
+                co2: "$sensors.MH-Z16.co2",
+
                 _id: 0
             }
 
@@ -522,7 +524,8 @@ var handleCurrentConditionsReport = function (request, response) {
 				EC: "$sensors.EC.ec",
 				TDS: "$sensors.EC.tds",
 				Salinity: "$sensors.EC.salinity",
-				specificGravity: "$sensors.EC.specificGravity",
+                specificGravity: "$sensors.EC.specificGravity",
+                co2: "$sensors.MH-Z16.co2",
                 date: "$dateString",
                 time: "$timeString"
 			}
