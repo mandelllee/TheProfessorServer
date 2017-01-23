@@ -107,7 +107,7 @@ jQuery(document).ready(function($) {
     //addPage("Sensors", '<div id="charts"></div>', false);
 
     addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
-    addPage("Node:piruWest", '<div class=current-data id="piruWest-current-data"></div>', '<div id="piruWest-charts"></div>', false);
+    addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
     addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
     addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
     addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
@@ -180,11 +180,12 @@ jQuery(document).ready(function($) {
             { title: "TDS", report: "water", field:"TDS", chart:"tds_chart_piru", error_margin: 2},
             { title: "Salinity", report: "water", field:"Salinity", chart:"salinity_chart_piru", error_margin: 1}
         ]);
-        renderSensorCharts( "piruWest", [
-            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruWest", error_margin: 500 },
-            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruWest", error_margin: 5 },
-            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruWest", error_margin: 2 },
-            { title: "CO2", report: "environment", field:"co2", chart:"co2_chart_piruWest", error_margin: 2 },
+        renderSensorCharts( "piruGreenhouseEnvironment", [
+            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruGreenhouseEnvironment", error_margin: 500 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruGreenhouseEnvironment", error_margin: 5 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruGreenhouseEnvironment", error_margin: 2 },
+            { title: "Temp (F) -  BMP", report: "environment", field:"air_temp_f", chart:"temp_chart2_piruGreenhouseEnvironment", error_margin: 2 },
+            { title: "Air Pressure", report: "environment", field:"air_pressure", chart:"pressure_chart_piruGreenhouseEnvironment", error_margin: 2 },
         ]);
 
         renderSensorCharts( "EastVillage", [
