@@ -106,6 +106,8 @@ jQuery(document).ready(function($) {
     addPage("Overview", '<div> </div>', '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
     //addPage("Sensors", '<div id="charts"></div>', false);
 
+    addPage("Node:piruWestGR1", '<div class=current-data id="piruWestGR1-current-data"></div>', '<div id="piruWestGR1-charts"></div>', false);
+    addPage("Node:piruWestGR2", '<div class=current-data id="piruWestGR2-current-data"></div>', '<div id="piruWestGR2-charts"></div>', false);
     addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
     addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
     addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
@@ -193,6 +195,19 @@ jQuery(document).ready(function($) {
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_EastVillage", error_margin: 5 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EastVillage", error_margin: 2 },
         ]);
+
+        renderSensorCharts( "piruWestGR1", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruWestGR1", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruWestGR1", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruWestGR1", error_margin: 1 },
+        ]);
+
+        renderSensorCharts( "piruWestGR2", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruWestGR2", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruWestGR2", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruWestGR2", error_margin: 1 },
+        ]);
+
     };
 
     renderAllNodes();

@@ -671,7 +671,8 @@ var handleServerReady = function() {
             process.env.OPENSHIFT_APP_NAME;
     }
 
-
+  // connection_string = 'admin:cb6QQZ72SGla@127.0.0.1:55451/api';
+  
 
 
     //var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
@@ -735,7 +736,7 @@ function initIPAdress() {
         //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
         //  allows us to run/test the app locally.
         console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-        adr = '10.5.1.25';
+        adr = '192.168.1.72';
     }
     ipaddress = adr;
 }
