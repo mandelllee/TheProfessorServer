@@ -1,9 +1,11 @@
 var renderSensorCharts = function( hostname, array_of_charts ){
 
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
-	// var cmd = "http://192.168.1.72:3000/v1/report/";
+	// var cmd = "http://192.168.1.9:3000/v1/report/";
 
     var chart_container_id = hostname +"-charts";
+    console.log ("Hostname: " + hostname);
+    console.log("Chart container id: ") + chart_container_id;
     var base = document.getElementById(chart_container_id);
     //clear any content before adding new. There has got to be a better way of doing this.
     while(base.hasChildNodes()) {
@@ -27,7 +29,7 @@ var renderSensorCharts = function( hostname, array_of_charts ){
 
 var displayCurrentConditions = function(hostname) {
 	var cmd_local = "http://api-quadroponic.rhcloud.com/v1/report/";
-	// var cmd_local = "http://192.168.1.72:3000/v1/report/";
+	// var cmd_local = "http://192.168.1.9:3000/v1/report/";
     var current_conditions_url = cmd_local + "currentConditions" +'/'+hostname;
 	console.log(current_conditions_url);
  

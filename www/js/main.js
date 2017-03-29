@@ -108,14 +108,17 @@ jQuery(document).ready(function($) {
 
     addPage("Node:piruWestGR1", '<div class=current-data id="piruWestGR1-current-data"></div>', '<div id="piruWestGR1-charts"></div>', false);
     addPage("Node:piruWestGR2", '<div class=current-data id="piruWestGR2-current-data"></div>', '<div id="piruWestGR2-charts"></div>', false);
-    addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
-    addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
+    addPage("Node:piruNorthGR3a", '<div class=current-data id="piruNorthGR3a-current-data"></div>', '<div id="piruNorthGR3a-charts"></div>', false);
+    addPage("Node:piruNorthGR3b", '<div class=current-data id="piruNorthGR3b-current-data"></div>', '<div id="piruNorthGR3b-charts"></div>', false);
+    addPage("Node:piruNorthGR3c", '<div class=current-data id="piruNorthGR3c-current-data"></div>', '<div id="piruNorthGR3c-charts"></div>', false);
+    // addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
+    // addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
     addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
-    addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
-    addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
-    addPage("Node:aqua", '<div class=current-data id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
-    addPage("Node:tempo", '<div class=current-data id="tempo-current-data"> </div>', '<div id="tempo-charts"></div>', false);
-    addPage("Node:ford", '<div class=current-data id="ford-current-data"> </div>', '<div id="ford-charts"></div>', false);
+    // addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
+    // addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
+    // addPage("Node:aqua", '<div class=current-data id="aqua-current-data"> </div>', '<div id="aqua-charts"></div>', false);
+    // addPage("Node:tempo", '<div class=current-data id="tempo-current-data"> </div>', '<div id="tempo-charts"></div>', false);
+    // addPage("Node:ford", '<div class=current-data id="ford-current-data"> </div>', '<div id="ford-charts"></div>', false);
 
     addPage("Settings", '<div> </div>', '<div id="settings"></div>', false);
 
@@ -124,18 +127,18 @@ jQuery(document).ready(function($) {
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
 
     var renderAllNodes = function() {
-        renderSensorCharts( "potato", [
-            { title: "Soil Moisture (Mint)", report: "soil", field:"soil_1", chart:"soil_chart_potato", error_margin: 20 }
-        ]);
-        //plotData(cmd + 'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
+        // renderSensorCharts( "potato", [
+        //     { title: "Soil Moisture (Mint)", report: "soil", field:"soil_1", chart:"soil_chart_potato", error_margin: 20 }
+        // ]);
+        // //plotData(cmd + 'soil/potato', "soil_chart_potato", "soil_1", "Soil Moisture (Mint)");
 
 
-        renderSensorCharts( "pepper", [
-            { title: "Soil Moisture (Succulent)", report: "soil", field:"soil_3", chart:"soil_chart_pepper", error_margin: 20 },
-            { title: "Soil Moisture (Dome)", report: "soil", field:"soil_1", chart:"soil_chart_pepper1", error_margin: 20 },
-            { title: "Humidity (Aquarium Room)", report: "environment", field:"air_humidity", chart:"humidity_chart_pepper", error_margin: 5 },
-            { title: "Air Temp (Aquarium Room)", report: "environment", field:"air_temp_f_dht", chart:"humidity_chart_pepper", error_margin: 5 }
-        ]);
+        // renderSensorCharts( "pepper", [
+        //     { title: "Soil Moisture (Succulent)", report: "soil", field:"soil_3", chart:"soil_chart_pepper", error_margin: 20 },
+        //     { title: "Soil Moisture (Dome)", report: "soil", field:"soil_1", chart:"soil_chart_pepper1", error_margin: 20 },
+        //     { title: "Humidity (Aquarium Room)", report: "environment", field:"air_humidity", chart:"humidity_chart_pepper", error_margin: 5 },
+        //     { title: "Air Temp (Aquarium Room)", report: "environment", field:"air_temp_f_dht", chart:"humidity_chart_pepper", error_margin: 5 }
+        // ]);
 
         // plotData(cmd + 'soil/pepper', "soil_chart_pepper3", "soil_3", "Soil Moisture (Succulent)");
         // plotData(cmd + 'soil/pepper', "soil_chart_pepper1", "soil_1", "Soil Moisture (Dome)");
@@ -143,12 +146,12 @@ jQuery(document).ready(function($) {
         // plotData(cmd + 'environment/pepper', "humidity_chart_pepper", "air_humidity", "Humidity (Aquarium Room)", 5);
         // plotData(cmd + 'environment/pepper', "temp_chart_pepper", "air_temp_f_dht", "Temp(F) (Aquarium Room)", 5);
 
-        renderSensorCharts( "aqua", [
-            { title: "Aquarium pH", report: "water", field:"ph", chart:"ph_cart_aqua", error_margin: .02 },
-            { title: "Aquarium Temp (f)", report: "water", field:"temp", chart:"temp_cart_aqua", error_margin: .5 },
-            { title: "Aquarium Flow (LPH)", report: "water", field:"water_flow_lph", chart:"flow_cart_aqua", error_margin: .5 }
-        ]);
-        // plotData(cmd + 'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
+        // renderSensorCharts( "aqua", [
+        //     { title: "Aquarium pH", report: "water", field:"ph", chart:"ph_cart_aqua", error_margin: .02 },
+        //     { title: "Aquarium Temp (f)", report: "water", field:"temp", chart:"temp_cart_aqua", error_margin: .5 },
+        //     { title: "Aquarium Flow (LPH)", report: "water", field:"water_flow_lph", chart:"flow_cart_aqua", error_margin: .5 }
+        // ]);
+        // // plotData(cmd + 'water/aqua', "ph_cart_aqua", "ph", "Aquarium pH", .02);
         // plotData(cmd + 'water/aqua', "temp_cart_aqua", "temp", "Aquarium Temp (f)", .5);
         // plotData(cmd + 'water/aqua', "flow_cart_aqua", "water_flow_lph", "Aquarium Flow (LPH)", .5);
 
@@ -156,39 +159,39 @@ jQuery(document).ready(function($) {
         // plotData(cmd + 'soil/ford', "soil_chart_ford", "soil_1", "Soil Moisture (Basil)", 2);
         // plotData(cmd + 'environment/ford', "humidity_chart_ford", "air_humidity", "Humidity(Basil)", 2);
         // plotData(cmd + 'environment/ford', "temp_chart_ford", "air_temp_f", "Temp(F) (Basil)", 2);
-        renderSensorCharts( "ford", [
-            { title: "Soil Moisture (Basil)", report: "soil", field:"soil_1", chart:"soil_chart_ford", error_margin: 2 },
-            { title: "Humidity(Basil)", report: "environment", field:"air_humidity", chart:"humidity_chart_ford", error_margin: 2 },
-            { title: "Temp (F) (window)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_ford", error_margin: 2 }
-        ]);
+        // renderSensorCharts( "ford", [
+        //     { title: "Soil Moisture (Basil)", report: "soil", field:"soil_1", chart:"soil_chart_ford", error_margin: 2 },
+        //     { title: "Humidity(Basil)", report: "environment", field:"air_humidity", chart:"humidity_chart_ford", error_margin: 2 },
+        //     { title: "Temp (F) (window)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_ford", error_margin: 2 }
+        // ]);
 
         // plotData(cmd + 'environment/tempo', "lux_chart_tempo", "light_lux", "LUX (window)", 500);
         // plotData(cmd + 'environment/tempo', "humidity_chart_tempo", "air_humidity", "Humidity (window)", 5);
         // plotData(cmd + 'environment/tempo', "temp_chart_tempo", "air_temp_f", "Temp (F) (window)", 2);
-        renderSensorCharts( "tempo", [
-            { title: "LUX (window)", report: "environment", field:"light_lux", chart:"lux_chart_tempo", error_margin: 500 },
-            { title: "Humidity (window)", report: "environment", field:"air_humidity", chart:"humidity_chart_tempo", error_margin: 5 },
-            { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_tempo", error_margin: 2 }
-        ]);
+        // renderSensorCharts( "tempo", [
+        //     { title: "LUX (window)", report: "environment", field:"light_lux", chart:"lux_chart_tempo", error_margin: 500 },
+        //     { title: "Humidity (window)", report: "environment", field:"air_humidity", chart:"humidity_chart_tempo", error_margin: 5 },
+        //     { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_tempo", error_margin: 2 }
+        // ]);
 
-        renderSensorCharts( "piru", [
-            { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 500 },
-            { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
-            { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 },
-            { title: "Temp (F) (Inside Box)", report: "environment", field:"air_temp_f", chart:"temp_inside_box_chart_piru", error_margin: 2 },
-            { title: "Reservior pH", report: "water", field:"ph", chart:"ph_cart_piru", error_margin: .02 },
-            { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 },
-            { title: "EC", report: "water", field:"EC", chart:"ec_chart_piru", error_margin: .02},
-            { title: "TDS", report: "water", field:"TDS", chart:"tds_chart_piru", error_margin: 2},
-            { title: "Salinity", report: "water", field:"Salinity", chart:"salinity_chart_piru", error_margin: 1}
-        ]);
-        renderSensorCharts( "piruGreenhouseEnvironment", [
-            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruGreenhouseEnvironment", error_margin: 500 },
-            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruGreenhouseEnvironment", error_margin: 5 },
-            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruGreenhouseEnvironment", error_margin: 2 },
-            { title: "Temp (F) -  BMP", report: "environment", field:"air_temp_f", chart:"temp_chart2_piruGreenhouseEnvironment", error_margin: 2 },
-            { title: "Air Pressure", report: "environment", field:"air_pressure", chart:"pressure_chart_piruGreenhouseEnvironment", error_margin: 2 },
-        ]);
+        // renderSensorCharts( "piru", [
+        //     { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 500 },
+        //     { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
+        //     { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 },
+        //     { title: "Temp (F) (Inside Box)", report: "environment", field:"air_temp_f", chart:"temp_inside_box_chart_piru", error_margin: 2 },
+        //     { title: "Reservior pH", report: "water", field:"ph", chart:"ph_cart_piru", error_margin: .02 },
+        //     { title: "Reservior Temp (f)", report: "water", field:"temp", chart:"temp_cart_piru", error_margin: .5 },
+        //     { title: "EC", report: "water", field:"EC", chart:"ec_chart_piru", error_margin: .02},
+        //     { title: "TDS", report: "water", field:"TDS", chart:"tds_chart_piru", error_margin: 2},
+        //     { title: "Salinity", report: "water", field:"Salinity", chart:"salinity_chart_piru", error_margin: 1}
+        // ]);
+        // renderSensorCharts( "piruGreenhouseEnvironment", [
+        //     { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruGreenhouseEnvironment", error_margin: 500 },
+        //     { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruGreenhouseEnvironment", error_margin: 5 },
+        //     { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruGreenhouseEnvironment", error_margin: 2 },
+        //     { title: "Temp (F) -  BMP", report: "environment", field:"air_temp_f", chart:"temp_chart2_piruGreenhouseEnvironment", error_margin: 2 },
+        //     { title: "Air Pressure", report: "environment", field:"air_pressure", chart:"pressure_chart_piruGreenhouseEnvironment", error_margin: 2 },
+        // ]);
 
         renderSensorCharts( "EastVillage", [
             { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_EastVillage", error_margin: 500 },
@@ -207,6 +210,38 @@ jQuery(document).ready(function($) {
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruWestGR2", error_margin: 1 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruWestGR2", error_margin: 1 },
         ]);
+        // renderSensorCharts( "piruNorthGR1", [
+        //     { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR1", error_margin: 20 },
+        //     { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR1", error_margin: 1 },
+        //     { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR1", error_margin: 1 },
+        // ]);
+        // renderSensorCharts( "piruNorthGR2", [
+        //     { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR2", error_margin: 20 },
+        //     { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR2", error_margin: 1 },
+        //     { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR2", error_margin: 1 },
+        // ]);
+        renderSensorCharts( "piruNorthGR3a", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR3a", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR3a2", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR3a", error_margin: 1 },
+        ]);
+        renderSensorCharts( "piruNorthGR3b", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR3b", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR3b2", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR3b", error_margin: 1 },
+        ]);
+
+        renderSensorCharts( "piruNorthGR3c", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR3c", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR3c", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR3c", error_margin: 1 },
+        ]);
+
+        // renderSensorCharts( "piruNorthUrbanGR1", [
+        //     { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthUrbanGR1", error_margin: 20 },
+        //     { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthUrbanGR1", error_margin: 1 },
+        //     { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthUrbanGR1", error_margin: 1 },
+        // ]);
 
     };
 
