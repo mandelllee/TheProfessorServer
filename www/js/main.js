@@ -111,6 +111,8 @@ jQuery(document).ready(function($) {
     addPage("Node:piruNorthGR3a", '<div class=current-data id="piruNorthGR3a-current-data"></div>', '<div id="piruNorthGR3a-charts"></div>', false);
     addPage("Node:piruNorthGR3b", '<div class=current-data id="piruNorthGR3b-current-data"></div>', '<div id="piruNorthGR3b-charts"></div>', false);
     addPage("Node:piruNorthGR3c", '<div class=current-data id="piruNorthGR3c-current-data"></div>', '<div id="piruNorthGR3c-charts"></div>', false);
+    addPage("Node:piruNorthUrbanGR1", '<div class=current-data id="piruNorthUrbanGR1-current-data"></div>', '<div id="piruNorthUrbanGR1-charts"></div>', false);
+    addPage("Node:piruNorthUrbanGR2", '<div class=current-data id="piruNorthUrbanGR2-current-data"></div>', '<div id="piruNorthUrbanGR2-charts"></div>', false);
     // addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
     // addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
     addPage("Node:FarmOne    ", '<div class=current-data id="FarmOne-current-data"></div>', '<div id="FarmOne-charts"></div>', false);
@@ -242,6 +244,16 @@ jQuery(document).ready(function($) {
             { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthGR3c", error_margin: 20 },
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthGR3c", error_margin: 1 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthGR3c", error_margin: 1 },
+        ]);
+        renderSensorCharts( "piruNorthUrbanGR1", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthUrbanGR1", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthUrbanGR1", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthUrbanGR1", error_margin: 1 },
+        ]);
+        renderSensorCharts( "piruNorthUrbanGR2", [
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_piruNorthUrbanGR2", error_margin: 20 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruNorthUrbanGR2", error_margin: 1 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piruNorthUrbanGR2", error_margin: 1 },
         ]);
 
         // renderSensorCharts( "piruNorthUrbanGR1", [
