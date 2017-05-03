@@ -19,7 +19,8 @@ body {
 }
 
 a {
-  color: #982b3c;
+  color: #f40623;
+  font-size: 120%;
   text-decoration: none;
 }
 
@@ -342,23 +343,23 @@ Images block
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(2) {
-  background: #343642;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(3) {
-  background: #982b3c;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(4) {
-  background: #338899;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(5) {
-  background: #330099;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li:nth-of-type(6) {
-  background: #448822;
+  background: #979c9c;
   background-size: cover;
 }
 .cd-images-list > li > a {

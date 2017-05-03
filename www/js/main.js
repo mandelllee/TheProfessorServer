@@ -22,8 +22,8 @@ jQuery(document).ready(function($) {
         var pageNum = pages.length;
 
 
-        var leftPage = $("<li><div><a href=\"#" + pageNum + "\"><h2>" + title + "</div> "  + currentCondtions +  "</li>");
-        var rightPage = $("<li><div><h2>" + title + "</h2>" + content + "</div></li>");
+        var leftPage = $("<li><div style='color:gray'><a href=\"#" + pageNum + "\"><h2>" + title + "</div> "  + currentCondtions +  "</li>");
+        var rightPage = $("<li><di style='color:gray'v><h2>" + title + "</h2>" + content + "</div></li>");
 
         if (selected === true) {
             leftPage.addClass("is-selected");
@@ -178,7 +178,7 @@ jQuery(document).ready(function($) {
         // ]);
 
         renderSensorCharts( "piru", [
-            { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 500 },
+            { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 50 },
             { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
             { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 }
             ]);
@@ -191,13 +191,13 @@ jQuery(document).ready(function($) {
         // ]);
 
         renderSensorCharts( "EastVillage", [
-            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_EastVillage", error_margin: 500 },
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_EastVillage", error_margin: 50 },
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_EastVillage", error_margin: 5 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EastVillage", error_margin: 2 },
         ]);
 
         renderSensorCharts( "FarmOne", [
-            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_FarmOne", error_margin: 500 },
+            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_FarmOne", error_margin: 50 },
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_FarmOne", error_margin: 5 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_FarmOne", error_margin: 2 },
         ]);
