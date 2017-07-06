@@ -106,6 +106,7 @@ jQuery(document).ready(function($) {
     addPage("Overview", '<div> </div>', '<div id="start-content"><h1>This is a basic dashboard utility to display sensor data.</h1></div>', true);
     //addPage("Sensors", '<div id="charts"></div>', false);
 
+    addPage("Node:EcoAquaponics1", '<div class=current-data id="EcoAquaponics1-current-data"></div>', '<div id="EcoAquaponics1-charts"></div>', false);
     addPage("Node:piruWestGR1", '<div class=current-data id="piruWestGR1-current-data"></div>', '<div id="piruWestGR1-charts"></div>', false);
     addPage("Node:piruWestGR2", '<div class=current-data id="piruWestGR2-current-data"></div>', '<div id="piruWestGR2-charts"></div>', false);
     addPage("Node:piruNorthGR3a", '<div class=current-data id="piruNorthGR3a-current-data"></div>', '<div id="piruNorthGR3a-charts"></div>', false);
@@ -181,7 +182,12 @@ jQuery(document).ready(function($) {
             { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 50 },
             { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
             { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 }
-            ]);
+        ]);
+        renderSensorCharts( "EcoAquaponics1", [
+            { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_EcoAquaponics1", error_margin: 50 },
+            { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_EcoAquaponics1", error_margin: 5 },
+            { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EcoAquaponics1", error_margin: 2 }
+        ]);
         // renderSensorCharts( "piruGreenhouseEnvironment", [
         //     { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruGreenhouseEnvironment", error_margin: 500 },
         //     { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_piruGreenhouseEnvironment", error_margin: 5 },
