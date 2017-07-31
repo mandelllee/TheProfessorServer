@@ -117,6 +117,7 @@ jQuery(document).ready(function($) {
     addPage("Node:piru", '<div class=current-data id="piru-current-data"></div>', '<div id="piru-charts"></div>', false);
     // addPage("Node:piruGreenhouseEnvironment", '<div class=current-data id="piruGreenhouseEnvironment-current-data"></div>', '<div id="piruGreenhouseEnvironment-charts"></div>', false);
     addPage("Node:FarmOne    ", '<div class=current-data id="FarmOne-current-data"></div>', '<div id="FarmOne-charts"></div>', false);
+    addPage("Node:PiruGreenhouse    ", '<div class=current-data id="PiruGreenhouse-current-data"></div>', '<div id="PiruGreenhouse-charts"></div>', false);
     addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
     // addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
     // addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
@@ -184,9 +185,14 @@ jQuery(document).ready(function($) {
             { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_piru", error_margin: 2 }
         ]);
         renderSensorCharts( "EcoAquaponics1", [
-            { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_EcoAquaponics1", error_margin: 50 },
-            { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_EcoAquaponics1", error_margin: 5 },
-            { title: "Temp (F) (Corral)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EcoAquaponics1", error_margin: 2 }
+            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_EcoAquaponics1", error_margin: 50 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_EcoAquaponics1", error_margin: 5 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EcoAquaponics1", error_margin: 2 }
+        ]);
+        renderSensorCharts( "PiruGreenhouse", [
+            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_PiruGreenhouse", error_margin: 50 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_PiruGreenhouse", error_margin: 5 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_PiruGreenhouse", error_margin: 2 }
         ]);
         // renderSensorCharts( "piruGreenhouseEnvironment", [
         //     { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_piruGreenhouseEnvironment", error_margin: 500 },

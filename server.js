@@ -702,8 +702,10 @@ var handleServerReady = function() {
         //     }
         // });
 
+        checkLastUpdate();
 
     });
+
 };
 var mongo_db;
 var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST || "localhost";
@@ -766,3 +768,113 @@ rest_server.listen(port, ipaddress, handleServerReady);
 // app.listen(port, ipaddress, function() {
 //     console.log(`Application worker ${process.pid} started...`);
 // });
+
+
+var nodes = [
+    'EcoAquaponics1',
+    'piruWestGR1',
+    'piruWestGR2',
+    'piruNorthGR3a',
+    'piruNorthGR3b',
+    'piruNorthGR3c',
+    'piruNorthUrbanGR1',
+    'piruNorthUrbanGR2',
+    'FarmOne',
+    'EastVillage'
+];
+var body = "";
+
+function findInfo (hostName){
+    console.log("In find info");
+    // mongo_db.collection('SensorData').find({hostname: "EastVillage"},
+    //     {"timestamp": 1,
+    //         "dateTime": 1,
+    //         "dateString": 1,
+    //         "timeString": 1}).sort({timestamp: -1}, function(err, result) {
+    //     console.log("Result: " + result);
+    //     console.log("Error: " + err);
+    // });
+
+    var http = require('http');
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://admin:cb6QQZ72SGla@127.0.0.1:55451/api";
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var jsonQuery = {hostname: hostName} ;  //add or remove comma seperated "key":values given your JSON collection
+        var jsonProjection = {
+            "timestamp": 1,
+            "dateTime": 1,
+            "dateString": 1,
+            "timeString": 1
+        } ; //leave year out since that's specified in the query anyhow
+        var jsort = {"timestamp":-1} ; //-1 descending or 1 ascending
+        db.collection("SensorData", function(err, collection) {
+            collection.find( jsonQuery, jsonProjection).sort(jsort).limit(1).toArray( function(err, items) {
+                if (err) {
+                    console.log(err);
+                    return
+                }
+                if(items[0])  {
+                    var lastUpdate = items[0]["dateTime"];
+                    var currentTime = new Date();
+                    var window = 1000*60*60*(2+3);  //the three is added becase everything is in east coast time
+                    var cutoffTime = currentTime - window;
+                    if (cutoffTime < lastUpdate) {
+                        body = hostName + " is current";
+                    } else {
+                        body = "Last update for  " + hostName + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
+                    }
+                }
+            });
+        });
+    });
+}
+
+
+function checkLastUpdate() {
+    console.log("In last update: " + nodes);
+    nodes.map(function(nodeName) {
+        console.log(nodeName);
+        findInfo(nodeName);
+    });
+}
+
+
+// var CronJob = require('cron').CronJob;
+// new CronJob('*/1 * * * *', function() {
+//     var mailOptions = {
+//         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+//         to: 'lm@leafliftsystems.com', // list of receivers
+//         subject: 'The Professor update', // Subject line
+//         text: body, // plaintext body
+//         html: '<b>' + body + '</b>' // html body
+//     };
+//
+//     transporter.sendMail(mailOptions, function(error, info){
+//         if(error){
+//             return console.log(error);
+//         }
+//         console.log('Message sent: ' + info.response);
+//     });
+//
+// }, null, true, 'America/Los_Angeles');
+
+
+var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport('smtps://lm%40leafliftsystems.com:6!Notlob@smtp.gmail.com');
+
+// setup e-mail data with unicode symbols
+
+// var mailOptions = {
+//     from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+//     to: 'lm@leafliftsystems.com', // list of receivers
+//     subject: 'The Professor update', // Subject line
+//     text: body, // plaintext body
+//     html: '<b>' + body + '</b>' // html body
+// };
+
+// send mail with defined transport object
+
