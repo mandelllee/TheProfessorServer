@@ -825,7 +825,7 @@ function checkLastUpdate() {
 
 
 var CronJob = require('cron').CronJob;
-new CronJob('*/10 * * * *', function() {
+new CronJob('* */2 * * *', function() {
     var mailOptions = {
         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
         to: 'lm@leafliftsystems.com', // list of receivers
