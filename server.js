@@ -817,31 +817,38 @@ function findInfo (hostName){
 
 function checkLastUpdate() {
     console.log("In last update: " + nodes);
+    body = "";
     nodes.map(function(nodeName) {
         console.log(nodeName);
         findInfo(nodeName);
     });
 }
 
+var CronJobCheckStatus = require('cron').CronJob;
+new CronJobCheckStatus('* */30 */1 * *', function() {
+    checkLastUpdate();
+    console.log("Body: " + body);
+}, null, true, 'America/Los_Angeles')
 
-var CronJob = require('cron').CronJob;
-new CronJob('* */2 * * *', function() {
-    var mailOptions = {
-        from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
-        to: 'lm@leafliftsystems.com', // list of receivers
-        subject: 'The Professor update', // Subject line
-        text: body, // plaintext body
-        html: '<b>' + body + '</b>' // html body
-    };
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
-    });
-
-}, null, true, 'America/Los_Angeles');
+// var CronJobEmail = require('cron').CronJob;
+// new CronJobEmail('* * */2 * *', function() {
+//     var mailOptions = {
+//         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+//         to: 'lm@leafliftsystems.com', // list of receivers
+//         subject: 'The Professor update', // Subject line
+//         text: body, // plaintext body
+//         html: '<b>' + body + '</b>' // html body
+//     };
+//
+//     transporter.sendMail(mailOptions, function(error, info){
+//         if(error){
+//             return console.log(error);
+//         }
+//         console.log('Message sent: ' + info.response);
+//     });
+//
+// }, null, true, 'America/Los_Angeles');
 
 
 var nodemailer = require('nodemailer');
