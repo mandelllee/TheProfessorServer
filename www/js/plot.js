@@ -49,7 +49,7 @@ var displayCurrentConditions = function(hostname) {
               console.log("key: %o, value: %o", key, dataArray[key]);
               element = document.createElement("div");
                 var divContent = document.createTextNode(key + ": " + dataArray[key]);
-                element.appendChild(divContent);
+               element.appendChild(divContent);
          base.appendChild(element);
        }
             })
@@ -101,7 +101,7 @@ var plotData = function(url, elementid, field, title, error_margin,chart_contain
     	            width: 0
     	        },
     	        line: { // set the width of the line.
-    	            width: 5,
+    	            width: 1,
     	            color: "#004200"
     	        }
     	    };

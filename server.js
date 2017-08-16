@@ -372,7 +372,7 @@ var handleHealthRequest = function(request, response) {
 };
 var handleAquaReport  = function(request, response) {
 
-    console.log("Water report for [" + request.params.nodename + "]");
+    // console.log("Water report for [" + request.params.nodename + "]");
 
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
@@ -414,7 +414,7 @@ var handleAquaReport  = function(request, response) {
 };
 var handleEnvironmentReport = function(request, response) {
 
-    console.log("Environment Report for [" + request.params.nodename + "]");
+    // console.log("Environment Report for [" + request.params.nodename + "]");
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
         },
@@ -450,7 +450,7 @@ var handleEnvironmentReport = function(request, response) {
 
 var handleSoilReport = function(request, response) {
 
-    console.log("Soil Report for [" + request.params.nodename + "]");
+    // console.log("Soil Report for [" + request.params.nodename + "]");
 
     mongo_db.collection('SensorData').aggregate([{
             $match: { hostname: request.params.nodename }
@@ -482,7 +482,7 @@ var handleSoilReport = function(request, response) {
 
 var handleChartReport  = function(request, response) {
 
-    console.log("Chart report for [" + request.params.nodename + "]");
+    // console.log("Chart report for [" + request.params.nodename + "]");
 
     mongo_db.collection('SensorData').aggregate([{
         $match: { hostname: request.params.nodename,
@@ -527,7 +527,7 @@ var handleChartReport  = function(request, response) {
 
 
 var handleCurrentConditionsReport = function (request, response) {
-	console.log("HandleCurrentConditionReport");
+	// console.log("HandleCurrentConditionReport");
 	mongo_db.collection('SensorData').aggregate(
 
 	// Pipeline
@@ -663,6 +663,7 @@ var handleServerReady = function() {
     // default to a 'localhost' configuration:
     connection_string = '127.0.0.1:27017/api';
     // if OPENSHIFT env variables are present, use the available connection info:
+    console.log("OPENSHIFT mongo password: " + process.env.OPENSHIFT_MONGODB_DB_PASSWORD);
     if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
             process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
@@ -677,7 +678,6 @@ var handleServerReady = function() {
 
 
     //var mongo_url = 'mongodb://' + mongo_host + ':' + mongo_port + "/api";
-    console.log("Connecting mongo [" + connection_string + "]");
 
     MongoClient.connect("mongodb://" + connection_string, function(err, db) {
 
@@ -702,8 +702,10 @@ var handleServerReady = function() {
         //     }
         // });
 
+        checkLastUpdate();
 
     });
+
 };
 var mongo_db;
 var mongo_host = process.env.OPENSHIFT_MONGODB_DB_HOST || "localhost";
@@ -737,7 +739,7 @@ function initIPAdress() {
         //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
         //  allows us to run/test the app locally.
         console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-        adr = '192.168.0.10';
+        adr = '192.168.1.70';
     }
     ipaddress = adr;
 }
@@ -766,3 +768,103 @@ rest_server.listen(port, ipaddress, handleServerReady);
 // app.listen(port, ipaddress, function() {
 //     console.log(`Application worker ${process.pid} started...`);
 // });
+
+
+var nodes = [
+    'EcoAquaponics1',
+    'piruWestGR1',
+    'piruWestGR2',
+    'piruNorthGR3a',
+    'piruNorthGR3b',
+    'piruNorthGR3c',
+    'piruNorthUrbanGR1',
+    'piruNorthUrbanGR2',
+    'FarmOne',
+    'EastVillage'
+];
+var body = "";
+
+function findInfo (hostName){
+    var jsonQuery = {hostname: hostName} ;
+    var jsonProjection = {
+        "timestamp": 1,
+        "dateTime": 1,
+        "dateString": 1,
+        "timeString": 1
+    } ;
+    var jsort = {"timestamp":-1} ;
+    mongo_db.collection("SensorData", function(err, collection) {
+        collection.find( jsonQuery, jsonProjection).sort(jsort).limit(1).toArray( function(err, items) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            if(items[0])  {
+                var lastUpdate = items[0]["dateTime"];
+                var currentTime = new Date();
+                var window = 1000*60*60*(2+3);  //the three is added becase everything is in east coast time
+                var cutoffTime = currentTime - window;
+                if (cutoffTime < lastUpdate) {
+                    body += "<br/>" + hostName + " is current";
+                } else {
+                    body += "<br/>Last update for  " + hostName + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
+                }
+            }
+        });
+    });
+}
+
+
+function checkLastUpdate() {
+    console.log("In last update: " + nodes);
+    body = "";
+    nodes.map(function(nodeName) {
+        console.log(nodeName);
+        findInfo(nodeName);
+    });
+}
+
+var CronJobCheckStatus = require('cron').CronJob;
+new CronJobCheckStatus('* */30 */1 * *', function() {
+    checkLastUpdate();
+    console.log("Body: " + body);
+}, null, true, 'America/Los_Angeles')
+
+
+// var CronJobEmail = require('cron').CronJob;
+// new CronJobEmail('* * */2 * *', function() {
+//     var mailOptions = {
+//         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+//         to: 'lm@leafliftsystems.com', // list of receivers
+//         subject: 'The Professor update', // Subject line
+//         text: body, // plaintext body
+//         html: '<b>' + body + '</b>' // html body
+//     };
+//
+//     transporter.sendMail(mailOptions, function(error, info){
+//         if(error){
+//             return console.log(error);
+//         }
+//         console.log('Message sent: ' + info.response);
+//     });
+//
+// }, null, true, 'America/Los_Angeles');
+
+
+var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport('smtps://lm%40leafliftsystems.com:6!Notlob@smtp.gmail.com');
+
+// setup e-mail data with unicode symbols
+
+// var mailOptions = {
+//     from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+//     to: 'lm@leafliftsystems.com', // list of receivers
+//     subject: 'The Professor update', // Subject line
+//     text: body, // plaintext body
+//     html: '<b>' + body + '</b>' // html body
+// };
+
+// send mail with defined transport object
+
