@@ -389,7 +389,11 @@ var handleAquaReport  = function(request, response) {
 
                 //cal: "$sensors.soil.calibration",
                 ph: "$sensors.ph",
-                temp: "$sensors.probes.avg.temp_c",
+                pH1:"$sensors.ph1",
+                pH2:"$sensors.ph2",
+                pH3:"$sensors.ph3",
+                pH4:"$sensors.ph4",
+                waterTemp:"$sensors.waterTemp",
                 flow_lpm:"$sensors.flow.lpm",
                 flow_lph:"$sensors.flow.lph",
                 EC:"$sensors.EC.ec",
@@ -498,6 +502,11 @@ var handleChartReport  = function(request, response) {
                 //timestamp: "$timestamp",
                 date: { $add: [new Date(0), "$timestamp"] },
                 pH: "$sensors.ph",
+                pH1:"$sensors.ph1",
+                pH2:"$sensors.ph2",
+                pH3:"$sensors.ph3",
+                pH4:"$sensors.ph4",
+                waterTemp:"$sensors.waterTemp",
                 lux: "$sensors.tsl2561.lux",
                 waterTemperature_c: "$sensors.probes.avg.temp_c",
                 bmpTemperature_f: "$sensors.bmp085.temp_f",
@@ -527,7 +536,7 @@ var handleChartReport  = function(request, response) {
 
 
 var handleCurrentConditionsReport = function (request, response) {
-	// console.log("HandleCurrentConditionReport");
+	console.log("HandleCurrentConditionReport");
 	mongo_db.collection('SensorData').aggregate(
 
 	// Pipeline
@@ -556,7 +565,12 @@ var handleCurrentConditionsReport = function (request, response) {
 			$project: {
 				_id: 0,
 				pH: "$sensors.ph",
-				lux: "$sensors.tsl2561.lux",
+                pH1:"$sensors.ph1",
+                pH2:"$sensors.ph2",
+                pH3:"$sensors.ph3",
+                pH4:"$sensors.ph4",
+                waterTemp:"$sensors.waterTemp",
+                lux: "$sensors.tsl2561.lux",
 				waterTemperature_c: "$sensors.probes.avg.temp_c",
 				bmpTemperature_f: "$sensors.bmp085.temp_f",
 				bmpAltitude: "$sensors.bmp085.altitude",
@@ -770,19 +784,22 @@ rest_server.listen(port, ipaddress, handleServerReady);
 // });
 
 
-var nodes = [
-    'EcoAquaponics1',
-    'piruWestGR1',
-    'piruWestGR2',
-    'piruNorthGR3a',
-    'piruNorthGR3b',
-    'piruNorthGR3c',
-    'piruNorthUrbanGR1',
-    'piruNorthUrbanGR2',
-    'FarmOne',
-    'EastVillage'
-];
-var body = "";
+var nodes = {
+    'EcoAquaponics1':"",
+    'piruWestGR1':"",
+    'piruWestGR2':"",
+    'piruNorthGR3a':"",
+    'piruNorthGR3b':"",
+    'piruNorthGR3c':"",
+    'piruNorthUrbanGR1':"",
+    'piruNorthUrbanGR2':"",
+    'FarmOne':"",
+    "PiruGreenhouse":"",
+    "pHTester":"",
+    "ICE":"",
+    'EastVillage':""
+
+};
 
 function findInfo (hostName){
     var jsonQuery = {hostname: hostName} ;
@@ -805,10 +822,12 @@ function findInfo (hostName){
                 var window = 1000*60*60*(2+3);  //the three is added becase everything is in east coast time
                 var cutoffTime = currentTime - window;
                 if (cutoffTime < lastUpdate) {
-                    body += "<br/>" + hostName + " is current";
+                    nodes[hostName] = "<br/>" + hostName + " is current";
                 } else {
-                    body += "<br/>Last update for  " + hostName + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
+                    nodes[hostName] = "<br/>Last update for  " + hostName + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
                 }
+            } else {
+                console.log("No records found");
             }
         });
     });
@@ -817,20 +836,45 @@ function findInfo (hostName){
 
 function checkLastUpdate() {
     console.log("In last update: " + nodes);
-    body = "";
-    nodes.map(function(nodeName) {
-        console.log(nodeName);
-        findInfo(nodeName);
-    });
+
+    for (var key in nodes) {
+        console.log(key + " -> " + nodes[key])
+        findInfo(key);
+    }
+    // nodes.map(function(nodeName) {
+    //     console.log(nodeName);
+    //     findInfo(nodeName);
+    // });
 }
 
-var CronJobCheckStatus = require('cron').CronJob;
-new CronJobCheckStatus('* */30 */1 * *', function() {
+var cron = require('node-cron');
+
+new cron.schedule('*/10 * * * *', function() {
+    console.log("In cron job");
     checkLastUpdate();
-    console.log("Body: " + body);
-}, null, true, 'America/Los_Angeles')
+}, true)
 
+new cron.schedule("23 15 * * *", function () {
+    var body = "";
+    for (var node in nodes) {
+        body += nodes[node];
+    }
+    var mailOptions = {
+        from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
+        to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
+        subject: 'The Professor update', // Subject line
+        text: body, // plaintext body
+        html: '<b>' + body + '</b>' // html body
+    };
 
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
+
+})
 // var CronJobEmail = require('cron').CronJob;
 // new CronJobEmail('* * */2 * *', function() {
 //     var mailOptions = {

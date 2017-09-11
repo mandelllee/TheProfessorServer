@@ -119,6 +119,7 @@ jQuery(document).ready(function($) {
     addPage("Node:FarmOne    ", '<div class=current-data id="FarmOne-current-data"></div>', '<div id="FarmOne-charts"></div>', false);
     addPage("Node:ICE    ", '<div class=current-data id="ICE-current-data"></div>', '<div id="ICE-charts"></div>', false);
     addPage("Node:PiruGreenhouse    ", '<div class=current-data id="PiruGreenhouse-current-data"></div>', '<div id="PiruGreenhouse-charts"></div>', false);
+    addPage("Node:pHTester    ", '<div class=current-data id="pHTester-current-data"></div>', '<div id="pHTester-charts"></div>', false);
     addPage("Node:EastVillage", '<div class=current-data id="EastVillage-current-data"></div>', '<div id="EastVillage-charts"></div>', false);
     // addPage("Node:potato", '<div class=current-data id="potato-current-data"> </div>', '<div id="potato-charts"></div>', false);
     // addPage("Node:pepper", '<div class=current-data id="pepper-current-data"> </div>', '<div id="pepper-charts"></div>', false);
@@ -180,6 +181,13 @@ jQuery(document).ready(function($) {
         //     { title: "Temp (F) (window)", report: "environment", field:"air_temp_f", chart:"temp_chart_tempo", error_margin: 2 }
         // ]);
 
+        renderSensorCharts( "pHTester", [
+            { title: "pH1", report: "water", field:"pH1", chart:"pH1_pHTester", error_margin: .5 },
+            { title: "pH2", report: "water", field:"pH2", chart:"pH2_pHTester", error_margin: .5 },
+            { title: "pH3", report: "water", field:"pH3", chart:"pH3_pHTester", error_margin: .5 },
+            { title: "pH4", report: "water", field:"pH4", chart:"pH4_pHTester", error_margin: .5 },
+            { title: "waterTemp", report: "water", field:"waterTemp", chart:"waterTemp_pHTester", error_margin: .5 },
+        ]);
         renderSensorCharts( "piru", [
             { title: "LUX (Corral)", report: "environment", field:"light_lux", chart:"lux_chart_piru", error_margin: 50 },
             { title: "Humidity (Corral)", report: "environment", field:"air_humidity", chart:"humidity_chart_piru", error_margin: 5 },
@@ -189,6 +197,11 @@ jQuery(document).ready(function($) {
             { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_EcoAquaponics1", error_margin: 50 },
             { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_EcoAquaponics1", error_margin: 5 },
             { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_EcoAquaponics1", error_margin: 2 }
+        ]);
+        renderSensorCharts( "ICE", [
+            { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_ICE", error_margin: 50 },
+            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_ICE", error_margin: 5 },
+            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_ICE", error_margin: 2 }
         ]);
         renderSensorCharts( "PiruGreenhouse", [
             { title: "LUX", report: "environment", field:"light_lux", chart:"lux_chart_PiruGreenhouse", error_margin: 50 },
@@ -202,12 +215,6 @@ jQuery(document).ready(function($) {
         //     { title: "Temp (F) -  BMP", report: "environment", field:"air_temp_f", chart:"temp_chart2_piruGreenhouseEnvironment", error_margin: 2 },
         //     { title: "Air Pressure", report: "environment", field:"air_pressure", chart:"pressure_chart_piruGreenhouseEnvironment", error_margin: 2 },
         // ]);
-
-        renderSensorCharts( "ICE", [
-            { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_ICE", error_margin: 50 },
-            { title: "Humidity", report: "environment", field:"air_humidity", chart:"humidity_chart_ICE", error_margin: 5 },
-            { title: "Temp (F)", report: "environment", field:"air_temp_f_dht", chart:"temp_chart_ICE", error_margin: 2 },
-        ]);
 
         renderSensorCharts( "EastVillage", [
             { title: "LUX ", report: "environment", field:"light_lux", chart:"lux_chart_EastVillage", error_margin: 50 },
