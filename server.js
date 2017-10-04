@@ -491,9 +491,9 @@ var handleChartReport  = function(request, response) {
     mongo_db.collection('SensorData').aggregate([{
         $match: { hostname: request.params.nodename,
             "dateTime":
-                {
-                    $gte: (new Date((new Date()).getTime() - (24 * 60 * 60 * 1000)))
-                }}
+            {
+                $gte: (new Date((new Date()).getTime() - (24 * 60 * 60 * 1000)))
+            }}
     },
         { $sort: { timestamp: -1 } },  {
             $project: {
@@ -523,13 +523,72 @@ var handleChartReport  = function(request, response) {
                 Salinity: "$sensors.EC.salinity",
                 specificGravity: "$sensors.EC.specificGravity",
                 co2: "$sensors.MH-Z16.co2",
-               _id: 0
+                _id: 0
             }
         }
     ], function(err, result) {
         response.setHeader('Content-Type', 'application/json');
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.json(result);
+    });
+
+};
+
+var handleChart2Report  = function(request, response) {
+
+    // console.log("Chart report for [" + request.params.nodename + "]");
+
+    mongo_db.collection('SensorData').aggregate([{
+        $match: { hostname: request.params.nodename,
+            "dateTime":
+            {
+                $gte: (new Date((new Date()).getTime() - (request.params.days * 24 * 60 * 60 * 1000)))
+            }}
+    },
+        { $sort: { timestamp: 1 } },  {
+            $project: {
+                hostname: "$hostname",
+                //now:"$now",
+                //timestamp: "$timestamp",
+                date: { $add: [new Date(0), "$timestamp"] },
+                pH: "$sensors.ph",
+                pH1:"$sensors.ph1",
+                pH2:"$sensors.ph2",
+                pH3:"$sensors.ph3",
+                pH4:"$sensors.ph4",
+                waterTemp:"$sensors.waterTemp",
+                lux: "$sensors.tsl2561.lux",
+                waterTemperature_c: "$sensors.probes.avg.temp_c",
+                bmpTemperature_f: "$sensors.bmp085.temp_f",
+                bmpAltitude: "$sensors.bmp085.altitude",
+                bmpPressure: "$sensors.bmp085.pressure",
+                dhtTemperature_f: "$sensors.dht11.dht_temp_f",
+                dhtHumidity: "$sensors.dht11.dht_humidity",
+                soil1: "$sensors.soil.sensors.1",
+                soil2: "$sensors.soil.sensors.2",
+                soil3: "$sensors.soil.sensors.3",
+                soil4: "$sensors.soil.sensors.4",
+                EC: "$sensors.EC.ec",
+                TDS: "$sensors.EC.tds",
+                Salinity: "$sensors.EC.salinity",
+                specificGravity: "$sensors.EC.specificGravity",
+                co2: "$sensors.MH-Z16.co2",
+                _id: 0
+            }
+        }
+    ], function(err, result) {
+        response.setHeader('Content-Type', 'application/json');
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        var jsonResult = {};
+        jsonResult.y = [];
+        jsonResult.x = [];
+        var field = request.params.sensor;
+        result.forEach(function (item) {
+            jsonResult.y.push(item[field]);
+            jsonResult.x.push(item.date);
+        });
+        console.log(result);
+        response.json(jsonResult);
     });
 
 };
@@ -628,6 +687,7 @@ rest_server.get("v1/report/soil/:nodename", handleSoilReport);
 rest_server.get("v1/report/environment/:nodename", handleEnvironmentReport);
 rest_server.get("v1/report/currentConditions/:nodename", handleCurrentConditionsReport);
 rest_server.get("v1/report/chart/:nodename", handleChartReport);
+rest_server.get("v1/report/chart2/:nodename/:sensor/:days", handleChart2Report);
 
 rest_server.get('/health', handleHealthRequest);
 
