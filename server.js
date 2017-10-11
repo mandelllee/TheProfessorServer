@@ -557,13 +557,13 @@ var handleChart2Report  = function(request, response) {
                 pH3:"$sensors.ph3",
                 pH4:"$sensors.ph4",
                 waterTemp:"$sensors.waterTemp",
-                lux: "$sensors.tsl2561.lux",
+                lux: "$environment.light.lux",
                 waterTemperature_c: "$sensors.probes.avg.temp_c",
                 bmpTemperature_f: "$sensors.bmp085.temp_f",
                 bmpAltitude: "$sensors.bmp085.altitude",
                 bmpPressure: "$sensors.bmp085.pressure",
-                dhtTemperature_f: "$sensors.dht11.dht_temp_f",
-                dhtHumidity: "$sensors.dht11.dht_humidity",
+                dhtTemperature_f: "$environment.air.temp.f",
+                dhtHumidity: "$environment.air.humidity",
                 soil1: "$sensors.soil.sensors.1",
                 soil2: "$sensors.soil.sensors.2",
                 soil3: "$sensors.soil.sensors.3",
@@ -583,9 +583,11 @@ var handleChart2Report  = function(request, response) {
         jsonResult.y = [];
         jsonResult.x = [];
         var field = request.params.sensor;
+        var dateString = "";
         result.forEach(function (item) {
             jsonResult.y.push(item[field]);
-            jsonResult.x.push(item.date);
+            dateString = moment(item.date).format("YYYY-MM-DD HH:mm:ss");
+            jsonResult.x.push(dateString);
         });
         console.log(result);
         response.json(jsonResult);
@@ -629,7 +631,7 @@ var handleCurrentConditionsReport = function (request, response) {
                 pH3:"$sensors.ph3",
                 pH4:"$sensors.ph4",
                 waterTemp:"$sensors.waterTemp",
-                lux: "$sensors.tsl2561.lux",
+                lux: $sensors.tsl2561.lux,
 				waterTemperature_c: "$sensors.probes.avg.temp_c",
 				bmpTemperature_f: "$sensors.bmp085.temp_f",
 				bmpAltitude: "$sensors.bmp085.altitude",
@@ -687,7 +689,7 @@ rest_server.get("v1/report/soil/:nodename", handleSoilReport);
 rest_server.get("v1/report/environment/:nodename", handleEnvironmentReport);
 rest_server.get("v1/report/currentConditions/:nodename", handleCurrentConditionsReport);
 rest_server.get("v1/report/chart/:nodename", handleChartReport);
-rest_server.get("v1/report/chart2/:nodename/:sensor/:days", handleChart2Report);
+rest_server.get("v1/report/chart2/:location/:nodename/:sensor/:days", handleChart2Report);
 
 rest_server.get('/health', handleHealthRequest);
 
@@ -855,11 +857,15 @@ var nodes = {
     'piruNorthUrbanGR2':"",
     'FarmOne':"",
     "PiruGreenhouse":"",
-    "pHTester":"",
+    "piruDryingRoom":"",
     "ICE":"",
     'EastVillage':""
-
 };
+
+var nodes2 = [
+    {location : "Eco Aquaponics",
+        sensors : {"EcoAquaponics1" : ""}}
+]
 
 function findInfo (hostName){
     var jsonQuery = {hostname: hostName} ;
@@ -914,14 +920,15 @@ new cron.schedule('*/10 * * * *', function() {
     checkLastUpdate();
 }, true)
 
-new cron.schedule("23 15 * * *", function () {
+new cron.schedule("00 10 * * *", function () {
     var body = "";
     for (var node in nodes) {
         body += nodes[node];
     }
     var mailOptions = {
         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
-        to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
+        // to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
+        to: 'lm@leafliftsystems.com', // list of receivers
         subject: 'The Professor update', // Subject line
         text: body, // plaintext body
         html: '<b>' + body + '</b>' // html body
