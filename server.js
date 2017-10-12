@@ -1,4 +1,4 @@
-var GoogleSpreadsheet = require('google-spreadsheet');
+// var GoogleSpreadsheet = require('google-spreadsheet');
 var express = require('express');
 var async = require('async');
 var moment = require('moment');
@@ -631,7 +631,7 @@ var handleCurrentConditionsReport = function (request, response) {
                 pH3:"$sensors.ph3",
                 pH4:"$sensors.ph4",
                 waterTemp:"$sensors.waterTemp",
-                lux: $sensors.tsl2561.lux,
+                lux: "$sensors.tsl2561.lux",
 				waterTemperature_c: "$sensors.probes.avg.temp_c",
 				bmpTemperature_f: "$sensors.bmp085.temp_f",
 				bmpAltitude: "$sensors.bmp085.altitude",
@@ -815,7 +815,7 @@ function initIPAdress() {
         //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
         //  allows us to run/test the app locally.
         console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-        adr = '192.168.1.70';
+        adr = '192.168.0.9';
     }
     ipaddress = adr;
 }

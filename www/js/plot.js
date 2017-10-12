@@ -1,7 +1,7 @@
 var renderSensorCharts = function( hostname, array_of_charts ){
 
     var cmd = "http://api-quadroponic.rhcloud.com/v1/report/";
-	// var cmd = "http://192.168.1.9:3000/v1/report/";
+	// var cmd = "http://192.168.0.9:3000/v1/report/";
 
     var chart_container_id = hostname +"-charts";
     console.log ("Hostname: " + hostname);
@@ -29,7 +29,7 @@ var renderSensorCharts = function( hostname, array_of_charts ){
 
 var displayCurrentConditions = function(hostname) {
 	var cmd_local = "http://api-quadroponic.rhcloud.com/v1/report/";
-	// var cmd_local = "http://192.168.1.9:3000/v1/report/";
+	// var cmd_local = "http://192.168.0.9:3000/v1/report/";
     var current_conditions_url = cmd_local + "currentConditions" +'/'+hostname;
 	console.log(current_conditions_url);
  
