@@ -582,12 +582,16 @@ var handleChart2Report  = function(request, response) {
         var jsonResult = {};
         jsonResult.y = [];
         jsonResult.x = [];
+        jsonResult.y_max = [];
+        jsonResult.y_min = [];
         var field = request.params.sensor;
         var dateString = "";
         result.forEach(function (item) {
             jsonResult.y.push(item[field]);
             dateString = moment(item.date).format("YYYY-MM-DD HH:mm:ss");
             jsonResult.x.push(dateString);
+            jsonResult.y_max.push(90);
+            jsonResult.y_min.push(60);
         });
         console.log(result);
         response.json(jsonResult);
