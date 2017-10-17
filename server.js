@@ -173,110 +173,110 @@ var getNowTimestamp = function() {
 
 var recordData = function(request, response, next) {
 
-    var query = request.query;
-
-    try {
-        var doc = new GoogleSpreadsheet('1Yr3d8pXQllWeyCImAO6XK0u_NgsKmbjGjc9SEn9wM3I');
-        var sheet;
-        var worksheets;
-        var current_month_sheet = null;
-        var active_worksheet = null;
-
-        var current_month_string = get_current_month_string();
-        var worksheet_name = query.boardname;
-
-        //console.log("current_month_string=" + current_month_string);
-
-
-        var current_date_string = get_current_date_string();
-
-        async.series([
-            function setAuth(step) {
-                //var creds = require('./google-generated-creds.json');
-                doc.useServiceAccountAuth(creds, step);
-            },
-            function getInfoAndWorksheets(step) {
-                doc.getInfo(function(err, info) {
-                    //console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
-
-                    worksheets = info.worksheets;
-                    //console.log("we have " + worksheets.length + " worksheets");
-                    for (var n = 0; n < worksheets.length; n++) {
-                        var worksheet = worksheets[n];
-
-                        //console.log(" [" + n + "] " + worksheet.title + " (" + worksheet.rowCount + " rows)");
-
-                        if (worksheet.title == worksheet_name) {
-                            active_worksheet = worksheet;
-                        }
-                        // if (worksheet.title == current_month_string) {
-                        //     console.log("Found this month's sheet");
-                        //     current_month_sheet = worksheet;
-                        // }
-                    }
-                    if (active_worksheet == null) {
-                        // create the sheet if we did not find it
-                        console.log("creating worksheet [" + worksheet_name + "]");
-
-                        doc.addWorksheet({
-                            title: worksheet_name,
-                            rowCount: 50,
-                            colCount: 7,
-                            headers: [
-                                "date", "boardid", "boardname", "type", "propertyname", "value", "core_version", "id", "description"
-                            ]
-                        }, function(err, sheet) {
-                            active_worksheet = sheet;
-                            step();
-                        });
-
-                    } else {
-                        step();
-                    }
-                });
-            },
-
-            function addRow(step) {
-                //var url = require('url');
-                //var url_parts = url.parse(request.url, true);
-
-                var boardid = query.boardid;
-                var module = "Testing Module";
-                var section = "n/a";
-                var description = "Test Script";
-                var category = "?";
-                var status = "";
-                var notes = "";
-                var model = "";
-
-                console.log("recording data for board[" + boardid + "] " + query.propertyname + "=" + query.value);
-
-                active_worksheet.addRow({
-                    "id": query.id,
-                    "description": query.description,
-                    "type": query.type,
-                    "propertyname": query.propertyname,
-                    "value": query.value,
-
-                    "date": current_date_string,
-                    "boardid": query.boardid,
-                    "boardname": query.boardname,
-
-                    "core_version": query.core_version,
-                }, function(err) {
-                    if (err != null) console.log("error: " + err);
-                });
-            },
-            function allDone(step) {
-                res.send('id: ' + query.id);
-            }
-        ]);
-
-    } catch (err) {
-        console.log(err);
-        response.end('error' + err);
-    }
-
+    // var query = request.query;
+    //
+    // try {
+    //     var doc = new GoogleSpreadsheet('1Yr3d8pXQllWeyCImAO6XK0u_NgsKmbjGjc9SEn9wM3I');
+    //     var sheet;
+    //     var worksheets;
+    //     var current_month_sheet = null;
+    //     var active_worksheet = null;
+    //
+    //     var current_month_string = get_current_month_string();
+    //     var worksheet_name = query.boardname;
+    //
+    //     //console.log("current_month_string=" + current_month_string);
+    //
+    //
+    //     var current_date_string = get_current_date_string();
+    //
+    //     async.series([
+    //         function setAuth(step) {
+    //             //var creds = require('./google-generated-creds.json');
+    //             doc.useServiceAccountAuth(creds, step);
+    //         },
+    //         function getInfoAndWorksheets(step) {
+    //             doc.getInfo(function(err, info) {
+    //                 //console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+    //
+    //                 worksheets = info.worksheets;
+    //                 //console.log("we have " + worksheets.length + " worksheets");
+    //                 for (var n = 0; n < worksheets.length; n++) {
+    //                     var worksheet = worksheets[n];
+    //
+    //                     //console.log(" [" + n + "] " + worksheet.title + " (" + worksheet.rowCount + " rows)");
+    //
+    //                     if (worksheet.title == worksheet_name) {
+    //                         active_worksheet = worksheet;
+    //                     }
+    //                     // if (worksheet.title == current_month_string) {
+    //                     //     console.log("Found this month's sheet");
+    //                     //     current_month_sheet = worksheet;
+    //                     // }
+    //                 }
+    //                 if (active_worksheet == null) {
+    //                     // create the sheet if we did not find it
+    //                     console.log("creating worksheet [" + worksheet_name + "]");
+    //
+    //                     doc.addWorksheet({
+    //                         title: worksheet_name,
+    //                         rowCount: 50,
+    //                         colCount: 7,
+    //                         headers: [
+    //                             "date", "boardid", "boardname", "type", "propertyname", "value", "core_version", "id", "description"
+    //                         ]
+    //                     }, function(err, sheet) {
+    //                         active_worksheet = sheet;
+    //                         step();
+    //                     });
+    //
+    //                 } else {
+    //                     step();
+    //                 }
+    //             });
+    //         },
+    //
+    //         function addRow(step) {
+    //             //var url = require('url');
+    //             //var url_parts = url.parse(request.url, true);
+    //
+    //             var boardid = query.boardid;
+    //             var module = "Testing Module";
+    //             var section = "n/a";
+    //             var description = "Test Script";
+    //             var category = "?";
+    //             var status = "";
+    //             var notes = "";
+    //             var model = "";
+    //
+    //             console.log("recording data for board[" + boardid + "] " + query.propertyname + "=" + query.value);
+    //
+    //             active_worksheet.addRow({
+    //                 "id": query.id,
+    //                 "description": query.description,
+    //                 "type": query.type,
+    //                 "propertyname": query.propertyname,
+    //                 "value": query.value,
+    //
+    //                 "date": current_date_string,
+    //                 "boardid": query.boardid,
+    //                 "boardname": query.boardname,
+    //
+    //                 "core_version": query.core_version,
+    //             }, function(err) {
+    //                 if (err != null) console.log("error: " + err);
+    //             });
+    //         },
+    //         function allDone(step) {
+    //             res.send('id: ' + query.id);
+    //         }
+    //     ]);
+    //
+    // } catch (err) {
+    //     console.log(err);
+    //     response.end('error' + err);
+    // }
+    //
     response.end("recorded");
 
 }
@@ -864,8 +864,111 @@ var nodes = {
 
 var nodes2 = [
     {location : "Eco Aquaponics",
-        sensors : {"EcoAquaponics1" : ""}}
+        sensors : {"EcoAquaponics1" : ""}},
+    {location : "Piru West",
+        sensors : {
+            "piruWestGR1" : "",
+            "piruWestGR2" : ""}},
+    {location : "Piru North",
+        sensors : {
+            "piruNorthGR3a" : "",
+            "piruNorthGR3b" : "",
+            "piruNorthGR3c" : ""}},
+    {location : "Piru North Urban",
+        sensors : {
+            "piruNorthUrbanGR1" : "",
+            "piruNorthUrbanGR2" : ""}},
+    {location : "FarmOne",
+        sensors : {"FarmOne" : ""}},
+    {location : "Piru Greenhouse",
+        sensors : {"PiruGreenhouse" : ""}},
+    {location : "Piru Drying Room",
+        sensors : {"piruDryingRoom" : ""}},
+    {location : "ICE",
+        sensors : {"ICE" : ""}},
+    {location : "East Village",
+        sensors : {"EastVillage" : ""}},
+
 ]
+
+function updateLocationInfo() {
+    "use strict";
+    mongo_db.collection("Locations", function (err, collection) {
+        collection.find({}).toArray(function (err, locations) {
+            if (err) {
+                console.log(err);
+                return;
+            } else {
+                console.log("Locations from database: ");
+                locations.forEach(function (location, index) {
+                    console.log(index + ": " + location.location + " ID: " + location._id);
+                    location.sensors.forEach (function (sensor, index) {
+                        console.log("  " + index + ": " + sensor.hostname)
+                        findInfo2(sensor, location);
+                    })
+                })
+                
+
+            }
+        })
+    })
+    }
+
+function findInfo2 (sensor, location){
+    var jsonQuery = {hostname: sensor.hostname} ;
+    var jsonProjection = {
+        "timestamp": 1,
+        "dateTime": 1,
+        "dateString": 1,
+        "timeString": 1
+    } ;
+    var jsort = {"timestamp":-1} ;
+    mongo_db.collection("SensorData", function(err, collection) {
+        collection.find( jsonQuery, jsonProjection).sort(jsort).limit(1).toArray( function(err, items) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            if(items[0])  {
+                var lastUpdate = items[0]["dateTime"];
+                var currentTime = new Date();
+                var window = 1000*60*60*(2+3);  //the three is added becase everything is in east coast time
+                var cutoffTime = currentTime - window;
+                if (cutoffTime < lastUpdate) {
+                    sensor.lastUpdate = "<br/>" + sensor.hostname + " is current";
+                    console.log (sensor.lastUpdate);
+                } else {
+                    sensor.lastUpdate = "<br/>Last update for  " + sensor.hostname + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
+                    console.log (sensor.lastUpdate);
+                }
+                console.log("Update location: " + location);
+                console.log("Sensor: " + sensor);
+                updateSensorData(location)
+                // } else {
+                //     if (hostName !== undefined) {
+                //         console.log(hostname + " -> No records found");
+                //     }
+            }
+        });
+    });
+}
+
+function updateSensorData(location) {
+    "use strict";
+    mongo_db.collection("Locations", function (err, collection) {
+        console.log("Update location: " + location);
+        var query = {_id: location._id};
+        collection.updateOne(query, location, function (err, res) {
+            if (err) {
+                console.log("Error: " + err);
+            } else {
+                console.log("Result: " + res);
+            }
+        })
+    })
+
+}
+
 
 function findInfo (hostName){
     var jsonQuery = {hostname: hostName} ;
@@ -892,8 +995,10 @@ function findInfo (hostName){
                 } else {
                     nodes[hostName] = "<br/>Last update for  " + hostName + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
                 }
-            } else {
-                console.log("No records found");
+                // } else {
+                //     if (hostName !== undefined) {
+                //         console.log(hostname + " -> No records found");
+                //     }
             }
         });
     });
@@ -911,16 +1016,23 @@ function checkLastUpdate() {
     //     console.log(nodeName);
     //     findInfo(nodeName);
     // });
+    updateLocationInfo();
 }
 
 var cron = require('node-cron');
 
 new cron.schedule('*/10 * * * *', function() {
     console.log("In cron job");
-    checkLastUpdate();
+    updateLocationInfo();
 }, true)
 
-new cron.schedule("00 10 * * *", function () {
+new cron.schedule("*/30 * * * *", function () {
+    emailSensorInformation();sort
+
+})
+
+
+let emailSensorInformation = function () {
     var body = "";
     for (var node in nodes) {
         body += nodes[node];
@@ -934,12 +1046,16 @@ new cron.schedule("00 10 * * *", function () {
         html: '<b>' + body + '</b>' // html body
     };
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
             return console.log(error);
         }
         console.log('Message sent: ' + info.response);
     });
+};
+
+new cron.schedule("00 10 * * *", function () {
+    emailSensorInformation();
 
 })
 // var CronJobEmail = require('cron').CronJob;
