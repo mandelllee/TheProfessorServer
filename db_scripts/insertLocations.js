@@ -14,20 +14,15 @@ db.Locations.insert([
         ]
     },
     {
-        location: "Piru Greenhouse",
+        location: "Piru",
         sensors : [
             {hostname: "PiruGreenhouse",
-                lastUpdate: ""}
-        ]
-    },
-    {
-        location: "Piru Drying Room",
-        sensors : [
+                lastUpdate: ""},
             {hostname: "piruDryingRoom",
                 lastUpdate: ""}
         ]
     },
-    {
+   {
         location: "ICE",
         sensors : [
             {hostname: "ICE",

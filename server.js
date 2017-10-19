@@ -883,8 +883,7 @@ function updateLocationInfo() {
                         findInfo2(sensor, location);
                     })
                 })
-                
-
+                gatherEmailBody();
             }
         })
     })
@@ -911,10 +910,10 @@ function findInfo2 (sensor, location){
                 var window = 1000*60*60*(2+3);  //the three is added becase everything is in east coast time
                 var cutoffTime = currentTime - window;
                 if (cutoffTime < lastUpdate) {
-                    sensor.lastUpdate = "<br/>" + sensor.hostname + " is current";
+                    sensor.lastUpdate = "is current";
                     console.log (sensor.lastUpdate);
                 } else {
-                    sensor.lastUpdate = "<br/>Last update for  " + sensor.hostname + ": " + items[0]["dateString"]+ ", " + items[0]["timeString"];
+                    sensor.lastUpdate = "Last update: " + items[0]["dateString"]+ ", " + items[0]["timeString"];
                     console.log (sensor.lastUpdate);
                 }
                 console.log("Update location: " + location);
@@ -1008,19 +1007,37 @@ new cron.schedule("00 10 * * *", function () {
 
 })
 
+let emailBody = "";
 
+let gatherEmailBody = function () {
+    "use strict";
+    mongo_db.collection("Locations", function (err, collection) {
+        collection.find({}).toArray(function (err, locations) {
+            if (err) {
+                console.log ("Error: " + err);
+            } else {
+                locations.forEach(function (location) {
+                    emailBody += "<p>" + location.location + "</p>";
+                    location.sensors.forEach(function (sensor) {
+                        emailBody += "<p style='margin-left: 40px'>" + sensor.hostname + "-> " + sensor.lastUpdate + "</p>";
+                    })
+                })
+            }
+        })
+    })
+
+}
 let emailSensorInformation = function () {
-    var body = "";
-    for (var node in nodes) {
-        body += nodes[node];
-    }
+    // for (var node in nodes) {
+    //     body += nodes[node];
+    // }
     var mailOptions = {
         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
         to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
         // to: 'lm@leafliftsystems.com', // list of receivers
         subject: 'The Professor update', // Subject line
-        text: body, // plaintext body
-        html: '<b>' + body + '</b>' // html body
+        text: emailBody, // plaintext body
+        html: '<b>' + emailBody + '</b>' // html body
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -1031,44 +1048,8 @@ let emailSensorInformation = function () {
     });
 };
 
-new cron.schedule("00 10 * * *", function () {
-    emailSensorInformation();
-
-})
-// var CronJobEmail = require('cron').CronJob;
-// new CronJobEmail('* * */2 * *', function() {
-//     var mailOptions = {
-//         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
-//         to: 'lm@leafliftsystems.com', // list of receivers
-//         subject: 'The Professor update', // Subject line
-//         text: body, // plaintext body
-//         html: '<b>' + body + '</b>' // html body
-//     };
-//
-//     transporter.sendMail(mailOptions, function(error, info){
-//         if(error){
-//             return console.log(error);
-//         }
-//         console.log('Message sent: ' + info.response);
-//     });
-//
-// }, null, true, 'America/Los_Angeles');
-
 
 var nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport('smtps://lm%40leafliftsystems.com:6!Notlob@smtp.gmail.com');
-
-// setup e-mail data with unicode symbols
-
-// var mailOptions = {
-//     from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
-//     to: 'lm@leafliftsystems.com', // list of receivers
-//     subject: 'The Professor update', // Subject line
-//     text: body, // plaintext body
-//     html: '<b>' + body + '</b>' // html body
-// };
-
-// send mail with defined transport object
-
