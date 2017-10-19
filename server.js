@@ -866,34 +866,6 @@ var nodes = {
     'EastVillage':""
 };
 
-var nodes2 = [
-    {location : "Eco Aquaponics",
-        sensors : {"EcoAquaponics1" : ""}},
-    {location : "Piru West",
-        sensors : {
-            "piruWestGR1" : "",
-            "piruWestGR2" : ""}},
-    {location : "Piru North",
-        sensors : {
-            "piruNorthGR3a" : "",
-            "piruNorthGR3b" : "",
-            "piruNorthGR3c" : ""}},
-    {location : "Piru North Urban",
-        sensors : {
-            "piruNorthUrbanGR1" : "",
-            "piruNorthUrbanGR2" : ""}},
-    {location : "FarmOne",
-        sensors : {"FarmOne" : ""}},
-    {location : "Piru Greenhouse",
-        sensors : {"PiruGreenhouse" : ""}},
-    {location : "Piru Drying Room",
-        sensors : {"piruDryingRoom" : ""}},
-    {location : "ICE",
-        sensors : {"ICE" : ""}},
-    {location : "East Village",
-        sensors : {"EastVillage" : ""}},
-
-]
 
 function updateLocationInfo() {
     "use strict";
@@ -1030,8 +1002,9 @@ new cron.schedule('*/10 * * * *', function() {
     updateLocationInfo();
 }, true)
 
-new cron.schedule("*/30 * * * *", function () {
-    emailSensorInformation();sort
+// new cron.schedule("*/30 * * * * *", function () {
+new cron.schedule("00 10 * * *", function () {
+    emailSensorInformation();
 
 })
 
@@ -1043,8 +1016,8 @@ let emailSensorInformation = function () {
     }
     var mailOptions = {
         from: '"Lee Mandell" <lm@leafliftsystems.com.com>', // sender address
-        // to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
-        to: 'lm@leafliftsystems.com', // list of receivers
+        to: 'bk@leafliftsystems.com,lm@leafliftsystems.com', // list of receivers
+        // to: 'lm@leafliftsystems.com', // list of receivers
         subject: 'The Professor update', // Subject line
         text: body, // plaintext body
         html: '<b>' + body + '</b>' // html body
