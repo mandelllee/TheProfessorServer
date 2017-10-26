@@ -429,7 +429,10 @@ var handleEnvironmentReport = function(request, response) {
                 //timestamp: "$timestamp",
                 date: { $add: [new Date(0), "$timestamp"] },
 
-                light_lux: "$sensors.tsl2561.lux",
+                light_lux: "$environment.light.lux",
+                light_rgb_red: "$environment.light-rgb.red",
+                light_rgb_green: "$environment.light-rgb.green",
+                light_rgb_blue: "$environment.light-rgb.blue",
 
                 air_temp_f: "$sensors.bmp085.temp_f",
                 air_pressure: "$sensors.bmp085.pressure",
@@ -437,7 +440,27 @@ var handleEnvironmentReport = function(request, response) {
                 air_humidity: "$sensors.dht11.dht_humidity",
                 air_temp_f_dht: "$sensors.dht11.dht_temp_f",
 
+                air_1_humidity: "$environment.air-1.humidity",
+                air_1_temp: "$environment.air-1.temp",
+                air_2_humidity: "$environment.air-2.humidity",
+                air_2_temp: "$environment.air-2.temp",
+
                 co2: "$sensors.MH-Z16.co2",
+
+                co2_k30: "$environment.co2.k30",
+                co2_mg811: "$environment.co2.mg811",
+
+                other_analog1: "$other.analog1",
+                other_analog2: "$other.analog2",
+                other_analog3: "$other.analog3",
+
+                other_gpio1: "$other.gpio1",
+                other_gpio2: "$other.gpio2",
+
+                other_i2c_1: "$other.i2c_1",
+                other_i2c_2: "$other.i2c_2",
+
+                other_battery: "$other.battery",
 
                 _id: 0
             }
